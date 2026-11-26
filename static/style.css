@@ -1,0 +1,162 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Arial, sans-serif;
+}
+
+body{
+    background:#eef4f8;
+}
+
+header{
+    background:linear-gradient(180deg,#1fb4f0,#1597db);
+    padding:25px 22px 90px;
+    color:white;
+}
+
+.perfil{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.usuario{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.usuario img{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid white;
+}
+
+.nome{
+    font-size:24px;
+    font-weight:700;
+}
+
+.id{
+    font-size:15px;
+    opacity:.9;
+}
+
+.icones-topo{
+    display:flex;
+    gap:15px;
+    font-size:22px;
+}
+
+.pesquisa{
+    max-width:700px;
+    margin:-40px auto 30px;
+    background:#2e4ea3;
+    border-radius:16px;
+    padding:18px 22px;
+    display:flex;
+    align-items:center;
+    color:white;
+    box-shadow:0 12px 30px rgba(0,0,0,.15);
+}
+
+.pesquisa input{
+    flex:1;
+    border:none;
+    background:transparent;
+    color:white;
+    font-size:16px;
+    margin-left:10px;
+    outline:none;
+}
+
+.pesquisa input::placeholder{
+    color:#d8e5ff;
+}
+
+.container{
+    width:92%;
+    max-width:900px;
+    margin:auto;
+}
+
+.grade{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:20px;
+}
+
+.card{
+    text-decoration:none;
+    color:#111;
+    background:white;
+    border-radius:18px;
+    padding:18px;
+    text-align:center;
+    box-shadow:0 8px 22px rgba(0,0,0,.08);
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 16px 28px rgba(32,119,212,.22);
+}
+
+.card img{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+    margin-bottom:12px;
+}
+
+.card h3{
+    font-size:17px;
+}
+
+.logo{
+    text-align:right;
+    margin:35px 10px 90px;
+}
+
+.logo img{
+    width:130px;
+}
+
+footer{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:#2e4ea3;
+    display:flex;
+    justify-content:space-around;
+    padding:12px 0;
+    box-shadow:0 -4px 15px rgba(0,0,0,.15);
+}
+
+footer a{
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    font-size:13px;
+}
+
+footer img{
+    width:26px;
+    height:26px;
+    display:block;
+    margin:0 auto 5px;
+}
+.icones-topo{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.btn-topo img{
+    width:28px;
+    height:28px;
+    cursor:pointer;
+}
