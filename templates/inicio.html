@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PBEMA - Início</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f8fc;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           CABEÇALHO
+        ========================= */
+
+        header {
+            background: #087bd9;
+            color: white;
+            padding: 18px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .perfil {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .perfil img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+
+        .perfil-texto h3 {
+            font-size: 17px;
+            margin-bottom: 3px;
+        }
+
+        .perfil-texto p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* =========================
+           PARTE DIREITA DO HEADER
+        ========================= */
+
+        .acoes-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notificacao {
+            text-decoration: none;
+            color: white;
+            font-size: 27px;
+            transition: 0.2s;
+        }
+
+        .notificacao:hover {
+            transform: scale(1.1);
+        }
+
+        .menu-btn {
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* =========================
+           CONTEÚDO
+        ========================= */
+
+        main {
+            width: 90%;
+            max-width: 1250px;
+            margin: 35px auto;
+        }
+
+        .titulo {
+            margin-bottom: 25px;
+        }
+
+        .titulo h1 {
+            color: #075fb1;
+            font-size: 30px;
+            margin-bottom: 7px;
+        }
+
+        .titulo p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* =========================
+           PESQUISA
+        ========================= */
+
+        .pesquisa {
+            width: 100%;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .pesquisa input {
+            width: 100%;
+            height: 50px;
+            padding: 0 20px;
+            border: 1px solid #d5dfe9;
+            border-radius: 12px;
+            outline: none;
+            font-size: 15px;
+            background: white;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+            transition: 0.2s;
+        }
+
+        .pesquisa input:focus {
+            border-color: #087bd9;
+            box-shadow: 0 0 0 3px rgba(8, 123, 217, 0.12);
+        }
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            background: #087bd9;
+            min-height: 185px;
+            border-radius: 18px;
+            padding: 28px 22px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 7px 18px rgba(8, 123, 217, 0.22);
+            transition: 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(8, 123, 217, 0.3);
+            background: #076fc5;
+        }
+
+        .card .icone {
+            width: 62px;
+            height: 62px;
+            background: white;
+            color: #087bd9;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 29px;
+            font-weight: bold;
+        }
+
+        .card h2 {
+            font-size: 19px;
+            margin-bottom: 7px;
+        }
+
+        .card p {
+            font-size: 13px;
+            opacity: 0.92;
+            line-height: 1.4;
+        }
+
+        /* =========================
+           CARD AJUDA
+        ========================= */
+
+        .card-ajuda {
+            background: linear-gradient(135deg, #075fb1, #087bd9);
+        }
+
+        .card-ajuda:hover {
+            background: linear-gradient(135deg, #064f96, #076fc5);
+        }
+
+        .card-ajuda .icone {
+            font-size: 32px;
+        }
+
+        /* =========================
+           LOGO
+        ========================= */
+
+        .logo-area {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0 25px;
+        }
+
+        .logo-area img {
+            width: 130px;
+            max-width: 100%;
+        }
+
+        /* =========================
+           MENU LATERAL
+        ========================= */
+
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            right: -330px;
+            width: 330px;
+            height: 100vh;
+            background: white;
+            z-index: 2000;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+            transition: right 0.3s ease;
+            padding: 25px;
+        }
+
+        .menu-lateral.aberto {
+            right: 0;
+        }
+
+        .menu-topo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 35px;
+        }
+
+        .menu-topo h2 {
+            color: #087bd9;
+            font-size: 22px;
+        }
+
+        .fechar-menu {
+            background: #087bd9;
+            color: white;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .menu-info {
+            background: #f1f7fc;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 25px;
+        }
+
+        .menu-info strong {
+            color: #087bd9;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .menu-info span {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            color: #333;
+            background: #f5f8fb;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .menu-link:hover {
+            background: #087bd9;
+            color: white;
+        }
+
+        .menu-link.sair {
+            color: #d32f2f;
+            background: #fff1f1;
+        }
+
+        .menu-link.sair:hover {
+            background: #d32f2f;
+            color: white;
+        }
+
+        /* =========================
+           FUNDO DO MENU
+        ========================= */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1500;
+            display: none;
+        }
+
+        .overlay.ativo {
+            display: block;
+        }
+
+        /* =========================
+           RODAPÉ
+        ========================= */
+
+        footer {
+            width: 90%;
+            max-width: 1250px;
+            margin: 45px auto 25px;
+            background: white;
+            border-radius: 18px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.07);
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #087bd9;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+
+        footer a:hover {
+            background: #087bd9;
+            color: white;
+        }
+
+        /* =========================
+           RESPONSIVIDADE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 14px 4%;
+            }
+
+            .perfil img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .perfil-texto h3 {
+                font-size: 15px;
+            }
+
+            .perfil-texto p {
+                font-size: 11px;
+            }
+
+            main {
+                width: 92%;
+                margin-top: 25px;
+            }
+
+            .titulo h1 {
+                font-size: 25px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .card {
+                min-height: 160px;
+            }
+
+            .menu-lateral {
+                width: 85%;
+                right: -85%;
+            }
+
+            footer {
+                width: 92%;
+            }
+
+            footer a {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         CABEÇALHO
+    ========================== -->
+
+    <header>
+
+        <div class="perfil">
+
+            <img
+                src="ChatGPT Image 7 de out. de 2026, 13_37_25.png"
+                alt="Foto de perfil"
+            >
+
+            <div class="perfil-texto">
+
+                <h3>Lucilene Correa</h3>
+
+                <p>
+                    Responsável • PBEMA
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="acoes-header">
+
+            <a href="{{ url_for('pagina_notificacoes') }}"
+   class="notificacao"
+   title="Notificações">
+    🔔
+</a>
+            <button
+                class="menu-btn"
+                onclick="abrirMenu()"
+                title="Abrir menu"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MENU LATERAL
+    ========================== -->
+
+    <div
+        class="overlay"
+        id="overlay"
+        onclick="fecharMenu()"
+    ></div>
+
+
+    <aside
+        class="menu-lateral"
+        id="menuLateral"
+    >
+
+        <div class="menu-topo">
+
+            <h2>
+                Menu
+            </h2>
+
+            <button
+                class="fechar-menu"
+                onclick="fecharMenu()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="menu-info">
+
+            <strong>
+                Lucilene Correa
+            </strong>
+
+            <span>
+                Responsável pelo acompanhamento escolar
+            </span>
+
+        </div>
+
+
+        <a href="{{ url_for('pagina_cadastro') }}" class="menu-link">
+    ←
+    <span>Voltar para cadastro</span>
+</a>
+
+
+       <a href="{{ url_for('sair') }}" class="menu-link sair">
+    ⇥
+    <span>Sair e voltar para login</span>
+</a>
+
+    </aside>
+
+
+    <!-- =========================
+         CONTEÚDO PRINCIPAL
+    ========================== -->
+
+    <main>
+
+        <div class="titulo">
+
+            <h1>
+                Olá, Lucilene!
+            </h1>
+
+            <p>
+                Acompanhe as informações escolares do aluno de forma rápida e fácil.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             PESQUISA
+        ========================== -->
+
+        <div class="pesquisa">
+
+            <input
+                type="text"
+                id="campoPesquisa"
+                placeholder="Pesquisar frequência, notas, desempenho..."
+                onkeyup="pesquisarCards()"
+            >
+
+        </div>
+
+
+        <!-- =========================
+             CARDS
+        ========================== -->
+
+        <section
+            class="cards"
+            id="cards"
+        >
+
+
+            <!-- =========================
+                 AJUDA
+            ========================== -->
+
+            <a
+                href="{{ url_for('pagina_ajuda') }}"
+                class="card card-ajuda"
+                data-pesquisa="ajuda assistente robô robo dúvidas duvidas perguntas suporte atendimento"
+            >
+
+                <div class="icone">
+                    🤖
+                </div>
+
+                <h2>
+                    Ajuda
+                </h2>
+
+                <p>
+                    Tire suas dúvidas com o assistente do PBEMA.
+                </p>
+
+            </a>
+
+
+  
+<!-- FREQUÊNCIA -->
+<a
+    href="{{ url_for('pagina_frequencia') }}"
+    class="card"
+    data-pesquisa="frequência faltas presença presença escolar"
+>
+    <div class="icone">✓</div>
+
+    <h2>Frequência</h2>
+
+    <p>
+        Consulte a frequência e as faltas do aluno.
+    </p>
+</a>
+
+
+<!-- NOTAS -->
+<a
+    href="{{ url_for('pagina_notas') }}"
+    class="card"
+    data-pesquisa="notas médias provas avaliações boletim"
+>
+    <div class="icone">#</div>
+
+    <h2>Notas</h2>
+
+    <p>
+        Consulte as notas e médias escolares.
+    </p>
+</a>
+
+
+<!-- DESEMPENHO -->
+<a
+    href="{{ url_for('pagina_desempenho') }}"
+    class="card"
+    data-pesquisa="desempenho rendimento escolar evolução"
+>
+    <div class="icone">↗</div>
+
+    <h2>Desempenho</h2>
+
+    <p>
+        Acompanhe o rendimento e a evolução do aluno.
+    </p>
+</a>
+
+
+<!-- INFORMAÇÕES -->
+<a
+    href="{{ url_for('pagina_informacoes') }}"
+    class="card"
+    data-pesquisa="informações escola turma curso informações escolares"
+>
+    <div class="icone">i</div>
+
+    <h2>Informações escolares</h2>
+
+    <p>
+        Veja informações importantes sobre a escola e o curso.
+    </p>
+</a>
+
+
+<!-- VISUALIZAR ALUNO -->
+<a
+    href="{{ url_for('pagina_visualizar_aluno') }}"
+    class="card"
+    data-pesquisa="visualizar aluno estudante perfil matrícula dados aluno"
+>
+    <div class="icone">👤</div>
+
+    <h2>Visualizar aluno</h2>
+
+    <p>
+        Consulte os dados e informações do aluno.
+    </p>
+</a>
+
+
+        </section>
+
+
+        <!-- =========================
+             LOGO
+        ========================== -->
+
+        <div class="logo-area">
+
+            
+                
+            
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         RODAPÉ
+    ========================== -->
+
+    
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        function abrirMenu() {
+
+            document
+                .getElementById("menuLateral")
+                .classList
+                .add("aberto");
+
+            document
+                .getElementById("overlay")
+                .classList
+                .add("ativo");
+
+        }
+
+
+        function fecharMenu() {
+
+            document
+                .getElementById("menuLateral")
+                .classList
+                .remove("aberto");
+
+            document
+                .getElementById("overlay")
+                .classList
+                .remove("ativo");
+
+        }
+
+
+        function pesquisarCards() {
+
+            const pesquisa =
+                document
+                    .getElementById("campoPesquisa")
+                    .value
+                    .toLowerCase()
+                    .trim();
+
+
+            const cards =
+                document.querySelectorAll(".card");
+
+
+            cards.forEach(function(card) {
+
+                const texto =
+                    card
+                        .getAttribute("data-pesquisa")
+                        .toLowerCase();
+
+
+                if (texto.includes(pesquisa)) {
+
+                    card.style.display = "flex";
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

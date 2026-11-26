@@ -1,0 +1,476 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PBEMA - Visualizar Aluno</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef4f8;
+            color: #1d3557;
+        }
+
+        /* CABEÇALHO */
+
+        header {
+            background: linear-gradient(135deg, #1597db, #087bd9);
+            padding: 22px 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.12);
+        }
+
+        .cabecalho {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .cabecalho h1 {
+            color: white;
+            font-size: 24px;
+        }
+
+        .cabecalho p {
+            color: rgba(255,255,255,.9);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .voltar {
+            background: white;
+            color: #087bd9;
+            padding: 11px 18px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: .2s;
+            white-space: nowrap;
+        }
+
+        .voltar:hover {
+            background: #eaf5ff;
+            transform: translateY(-2px);
+        }
+
+        /* CONTEÚDO */
+
+        main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 35px 20px 70px;
+        }
+
+        .titulo {
+            margin-bottom: 25px;
+        }
+
+        .titulo h2 {
+            color: #214a93;
+            font-size: 27px;
+        }
+
+        .titulo p {
+            color: #667085;
+            margin-top: 7px;
+            font-size: 14px;
+        }
+
+        /* PERFIL DO ALUNO */
+
+        .aluno {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid #e1e8f0;
+            box-shadow: 0 6px 20px rgba(0,0,0,.05);
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            margin-bottom: 25px;
+        }
+
+        .area-foto {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .foto-aluno {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #214a93;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+            border: 4px solid #dceeff;
+            object-fit: cover;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .foto-aluno:hover {
+            opacity: .85;
+            transform: scale(1.04);
+        }
+
+        .botao-foto {
+            background: #eaf4ff;
+            color: #087bd9;
+            border: 1px solid #cfe5fa;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .botao-foto:hover {
+            background: #d8ecff;
+        }
+
+        #arquivoFoto {
+            display: none;
+        }
+
+        .aluno h3 {
+            color: #174a7c;
+            font-size: 23px;
+            margin-bottom: 9px;
+        }
+
+        .aluno p {
+            color: #667085;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 12px;
+            background: #e7f8ef;
+            color: #16834a;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* INFORMAÇÕES */
+
+        .subtitulo {
+            color: #214a93;
+            font-size: 19px;
+            margin: 30px 0 16px;
+        }
+
+        .informacoes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .info {
+            background: white;
+            border: 1px solid #e1e8f0;
+            border-radius: 15px;
+            padding: 21px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.04);
+            transition: .2s;
+        }
+
+        .info:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 18px rgba(33,74,147,.08);
+        }
+
+        .info strong {
+            display: block;
+            color: #087bd9;
+            font-size: 13px;
+            margin-bottom: 9px;
+        }
+
+        .info span {
+            color: #344054;
+            font-size: 16px;
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        /* SITUAÇÃO ESCOLAR */
+
+        .status {
+            margin-top: 25px;
+            background: #eaf6ff;
+            border-left: 5px solid #087bd9;
+            padding: 20px;
+            border-radius: 12px;
+            color: #174a7c;
+            line-height: 1.6;
+        }
+
+        .status strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* RODAPÉ */
+
+        footer {
+            text-align: center;
+            color: #8290a0;
+            font-size: 13px;
+            padding: 20px;
+        }
+
+        /* RESPONSIVO */
+
+        @media(max-width: 650px) {
+
+            .cabecalho h1 {
+                font-size: 20px;
+            }
+
+            .cabecalho p {
+                font-size: 11px;
+            }
+
+            .aluno {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .informacoes {
+                grid-template-columns: 1fr;
+            }
+
+            .voltar {
+                padding: 9px 12px;
+                font-size: 13px;
+            }
+
+            .titulo h2 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="cabecalho">
+            <div>
+                <h1>PBEMA</h1>
+                <p>Plataforma de Acompanhamento Escolar</p>
+            </div>
+
+            <!-- BOTÃO PARA VOLTAR AO INÍCIO -->
+           <a href="{{ url_for('pagina_inicio') }}" class="voltar">← Início</a>
+            </a>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="titulo">
+            <h2>Visualizar aluno</h2>
+            <p>Consulte os dados pessoais e as informações escolares cadastradas.</p>
+        </section>
+
+        <section class="aluno">
+
+            <!-- FOTO DE PERFIL -->
+            <div class="area-foto">
+
+                <img
+                    id="fotoPerfil"
+                    class="foto-aluno"
+                    src=""
+                    alt="Foto de perfil de João Correa"
+                    title="Clique para alterar a foto"
+                    onclick="document.getElementById('arquivoFoto').click()"
+                    style="display:none;"
+                >
+
+                <div
+                    id="fotoInicial"
+                    class="foto-aluno"
+                    onclick="document.getElementById('arquivoFoto').click()"
+                    title="Clique para adicionar uma foto"
+                >
+                    JC
+                </div>
+
+                <input
+                    type="file"
+                    id="arquivoFoto"
+                    accept="image/*"
+                >
+
+                <button
+                    type="button"
+                    class="botao-foto"
+                    onclick="document.getElementById('arquivoFoto').click()"
+                >
+                    Alterar foto
+                </button>
+
+            </div>
+
+            <div>
+                <h3>João Correa</h3>
+
+                <p>Matrícula: 20260025</p>
+
+                <p>Turma: 1º Ano</p>
+
+                <span class="etiqueta">● Matriculado</span>
+            </div>
+
+        </section>
+
+        <h3 class="subtitulo">Dados pessoais</h3>
+
+        <section class="informacoes">
+
+            <div class="info">
+                <strong>Nome completo</strong>
+                <span>João Correa</span>
+            </div>
+
+            <div class="info">
+                <strong>Data de nascimento</strong>
+                <span>02/05/2010</span>
+            </div>
+
+            <div class="info">
+                <strong>CPF</strong>
+                <span>Não informado</span>
+            </div>
+
+            <div class="info">
+                <strong>Curso</strong>
+                <span>Informática para Internet</span>
+            </div>
+
+        </section>
+
+        <h3 class="subtitulo">Informações escolares</h3>
+
+        <section class="informacoes">
+
+            <div class="info">
+                <strong>Escola</strong>
+                <span>Centro Educa Mais Cidade Operária II</span>
+            </div>
+
+            <div class="info">
+                <strong>Turma</strong>
+                <span>1º Ano</span>
+            </div>
+
+            <div class="info">
+                <strong>Matrícula</strong>
+                <span>20260025</span>
+            </div>
+
+            <div class="info">
+                <strong>Turno</strong>
+                <span>Matutino</span>
+            </div>
+
+            <div class="info">
+                <strong>Ano letivo</strong>
+                <span>2026</span>
+            </div>
+
+        </section>
+
+        <div class="status">
+            <strong>Situação escolar</strong>
+            Aluno matriculado regularmente no Centro Educa Mais Cidade Operária II.
+        </div>
+
+    </main>
+
+    <footer>
+        PBEMA © 2026 — Plataforma de Acompanhamento Escolar
+    </footer>
+
+    <script>
+        // CARREGAR FOTO SALVA
+        const arquivoFoto = document.getElementById("arquivoFoto");
+        const fotoPerfil = document.getElementById("fotoPerfil");
+        const fotoInicial = document.getElementById("fotoInicial");
+
+        function mostrarFoto(imagem) {
+            fotoPerfil.src = imagem;
+            fotoPerfil.style.display = "block";
+            fotoInicial.style.display = "none";
+        }
+
+        // RECUPERAR FOTO DO NAVEGADOR
+        const fotoSalva = localStorage.getItem("pbema_foto_joao");
+
+        if (fotoSalva) {
+            mostrarFoto(fotoSalva);
+        }
+
+        // ESCOLHER E SALVAR NOVA FOTO
+        arquivoFoto.addEventListener("change", function() {
+
+            const arquivo = this.files[0];
+
+            if (!arquivo) {
+                return;
+            }
+
+            if (!arquivo.type.startsWith("image/")) {
+                alert("Selecione um arquivo de imagem válido.");
+                this.value = "";
+                return;
+            }
+
+            const leitor = new FileReader();
+
+            leitor.onload = function(evento) {
+
+                const imagem = evento.target.result;
+
+                try {
+                    localStorage.setItem("pbema_foto_joao", imagem);
+                    mostrarFoto(imagem);
+                } catch (erro) {
+                    alert("Não foi possível salvar a foto. Escolha uma imagem menor.");
+                }
+
+            };
+
+            leitor.readAsDataURL(arquivo);
+        });
+    </script>
+
+</body>
+</html>
+```

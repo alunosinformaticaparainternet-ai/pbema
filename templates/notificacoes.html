@@ -1,0 +1,639 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PBEMA - Notificações</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef4f8;
+            color: #26364a;
+        }
+
+        /* CABEÇALHO */
+
+        header {
+            background: linear-gradient(135deg, #1597db, #087bd9);
+            color: white;
+            padding: 30px 5% 90px;
+        }
+
+        .cabecalho {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .marca {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .descricao-cabecalho {
+            font-size: 14px;
+            margin-top: 7px;
+            opacity: .9;
+        }
+
+        /* CONTEÚDO */
+
+        .conteudo {
+            width: 92%;
+            max-width: 950px;
+            margin: -60px auto 70px;
+        }
+
+        .painel {
+            background: white;
+            border-radius: 22px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.08);
+        }
+
+        /* TOPO */
+
+        .topo-pagina {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding-bottom: 22px;
+            border-bottom: 1px solid #e7edf4;
+        }
+
+        .titulo h2 {
+            color: #214a93;
+            font-size: 25px;
+        }
+
+        .titulo p {
+            color: #718096;
+            font-size: 14px;
+            margin-top: 7px;
+        }
+
+        .voltar {
+            background: #214a93;
+            color: white;
+            text-decoration: none;
+            padding: 11px 19px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: .3s;
+            white-space: nowrap;
+        }
+
+        .voltar:hover {
+            background: #1597db;
+            transform: translateY(-2px);
+        }
+
+        /* RESUMO */
+
+        .resumo {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .resumo-card {
+            background: #f4f8ff;
+            border: 1px solid #e4edf8;
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .resumo-card span {
+            display: block;
+            color: #718096;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .resumo-card strong {
+            color: #214a93;
+            font-size: 25px;
+        }
+
+        /* BARRA DE AÇÕES */
+
+        .acoes {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .acoes h3 {
+            color: #214a93;
+            font-size: 18px;
+        }
+
+        .marcar-todas {
+            border: none;
+            background: #eaf4ff;
+            color: #087bd9;
+            padding: 10px 15px;
+            border-radius: 9px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .marcar-todas:hover {
+            background: #d8ecff;
+        }
+
+        /* NOTIFICAÇÕES */
+
+        .lista-notificacoes {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .notificacao {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            border-radius: 15px;
+            background: #f8fbff;
+            border: 1px solid #e7edf5;
+            border-left: 5px solid #cbd5e1;
+            transition: .25s;
+        }
+
+        .notificacao:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
+        }
+
+        .notificacao.nao-lida {
+            background: #eef7ff;
+            border-left-color: #1597db;
+        }
+
+        .icone {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            border-radius: 14px;
+            background: #e1efff;
+            color: #214a93;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .texto {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .linha-titulo {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            flex-wrap: wrap;
+            margin-bottom: 7px;
+        }
+
+        .texto h3 {
+            color: #214a93;
+            font-size: 16px;
+        }
+
+        .texto p {
+            color: #596579;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .data {
+            color: #8994a4;
+            font-size: 12px;
+            margin-top: 9px;
+        }
+
+        .selo-novo {
+            background: #dceeff;
+            color: #087bd9;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .marcar-lida {
+            border: none;
+            background: transparent;
+            color: #087bd9;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            padding: 4px 0;
+        }
+
+        .marcar-lida:hover {
+            text-decoration: underline;
+        }
+
+        .notificacao.lida {
+            opacity: .78;
+            background: #fff;
+            border-left-color: #cbd5e1;
+        }
+
+        .notificacao.lida .selo-novo {
+            display: none;
+        }
+
+        /* ESTADO VAZIO */
+
+        .vazio {
+            display: none;
+            text-align: center;
+            padding: 35px 15px;
+            color: #718096;
+        }
+
+        .vazio strong {
+            display: block;
+            color: #214a93;
+            font-size: 17px;
+            margin-bottom: 7px;
+        }
+
+        /* RODAPÉ */
+
+        footer {
+            text-align: center;
+            color: #8290a0;
+            font-size: 13px;
+            padding: 20px;
+        }
+
+        /* RESPONSIVO */
+
+        @media(max-width: 600px) {
+
+            header {
+                padding: 25px 5% 85px;
+            }
+
+            .painel {
+                padding: 20px;
+            }
+
+            .resumo {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .notificacao {
+                padding: 15px;
+                gap: 12px;
+            }
+
+            .icone {
+                width: 43px;
+                height: 43px;
+                min-width: 43px;
+                font-size: 19px;
+            }
+
+            .texto h3 {
+                font-size: 14px;
+            }
+
+            .texto p {
+                font-size: 13px;
+            }
+
+            .titulo h2 {
+                font-size: 22px;
+            }
+
+            .voltar {
+                padding: 9px 13px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="cabecalho">
+            <div class="marca">PBEMA</div>
+            <div class="descricao-cabecalho">
+                Plataforma de Acompanhamento Escolar
+            </div>
+        </div>
+    </header>
+
+    <main class="conteudo">
+
+        <section class="painel">
+
+            <div class="topo-pagina">
+
+                <div class="titulo">
+                    <h2>Notificações</h2>
+                    <p>Acompanhe as atualizações da vida escolar de João Correa.</p>
+                </div>
+
+                <a href="{{ url_for('inicio') }}" class="voltar">
+                    ← Início
+                </a>
+
+            </div>
+
+            <!-- RESUMO DAS NOTIFICAÇÕES -->
+
+            <div class="resumo">
+
+                <div class="resumo-card">
+                    <span>Total de notificações</span>
+                    <strong id="totalNotificacoes">5</strong>
+                </div>
+
+                <div class="resumo-card">
+                    <span>Não lidas</span>
+                    <strong id="naoLidas">3</strong>
+                </div>
+
+            </div>
+
+            <!-- AÇÕES -->
+
+            <div class="acoes">
+                <h3>Atualizações recentes</h3>
+
+                <button
+                    type="button"
+                    class="marcar-todas"
+                    onclick="marcarTodasComoLidas()"
+                >
+                    Marcar todas como lidas
+                </button>
+            </div>
+
+            <!-- LISTA -->
+
+            <div class="lista-notificacoes" id="listaNotificacoes">
+
+                <article class="notificacao nao-lida">
+
+                    <div class="icone">📝</div>
+
+                    <div class="texto">
+
+                        <div class="linha-titulo">
+                            <h3>Nova nota lançada</h3>
+                            <span class="selo-novo">NOVA</span>
+                        </div>
+
+                        <p>
+                            A disciplina de <b>Matemática</b> foi atualizada
+                            com a nota <b>8,0</b>.
+                        </p>
+
+                        <div class="data">18/11/2026 • 08:30</div>
+
+                        <button class="marcar-lida" onclick="marcarComoLida(this)">
+                            Marcar como lida
+                        </button>
+
+                    </div>
+
+                </article>
+
+                <article class="notificacao nao-lida">
+
+                    <div class="icone">📋</div>
+
+                    <div class="texto">
+
+                        <div class="linha-titulo">
+                            <h3>Frequência atualizada</h3>
+                            <span class="selo-novo">NOVA</span>
+                        </div>
+
+                        <p>
+                            A frequência de <b>João Correa</b> foi atualizada.
+                            As presenças das aulas de hoje foram registradas.
+                        </p>
+
+                        <div class="data">18/11/2026 • 12:10</div>
+
+                        <button class="marcar-lida" onclick="marcarComoLida(this)">
+                            Marcar como lida
+                        </button>
+
+                    </div>
+
+                </article>
+
+                <article class="notificacao nao-lida">
+
+                    <div class="icone">📚</div>
+
+                    <div class="texto">
+
+                        <div class="linha-titulo">
+                            <h3>Atividade disponível</h3>
+                            <span class="selo-novo">NOVA</span>
+                        </div>
+
+                        <p>
+                            O professor de Português publicou uma nova
+                            atividade com prazo até sexta-feira.
+                        </p>
+
+                        <div class="data">17/11/2026 • 14:45</div>
+
+                        <button class="marcar-lida" onclick="marcarComoLida(this)">
+                            Marcar como lida
+                        </button>
+
+                    </div>
+
+                </article>
+
+                <article class="notificacao">
+
+                    <div class="icone">🎓</div>
+
+                    <div class="texto">
+
+                        <div class="linha-titulo">
+                            <h3>Boletim atualizado</h3>
+                        </div>
+
+                        <p>
+                            As médias do 2º bimestre já podem ser consultadas
+                            na página de <b>Notas</b>.
+                        </p>
+
+                        <div class="data">25/09/2026</div>
+
+                    </div>
+
+                </article>
+
+                <article class="notificacao">
+
+                    <div class="icone">🏫</div>
+
+                    <div class="texto">
+
+                        <div class="linha-titulo">
+                            <h3>Comunicado da escola</h3>
+                        </div>
+
+                        <p>
+                            Reunião de pais e responsáveis acontecerá no dia
+                            <b>30/09 às 18h</b>.
+                        </p>
+
+                        <div class="data">24/09/2026</div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+            <div class="vazio" id="vazio">
+                <strong>Nenhuma notificação encontrada.</strong>
+                Todas as atualizações foram exibidas.
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        PBEMA © 2026 — Plataforma de Acompanhamento Escolar
+    </footer>
+
+    <script>
+        const notificacoes = document.querySelectorAll(".notificacao");
+
+        // ATUALIZAR CONTADORES
+        function atualizarContadores() {
+
+            const total = notificacoes.length;
+
+            const pendentes = document.querySelectorAll(
+                ".notificacao.nao-lida"
+            ).length;
+
+            document.getElementById("totalNotificacoes").textContent = total;
+            document.getElementById("naoLidas").textContent = pendentes;
+        }
+
+        // MARCAR UMA NOTIFICAÇÃO COMO LIDA
+        function marcarComoLida(botao) {
+
+            const notificacao = botao.closest(".notificacao");
+
+            notificacao.classList.remove("nao-lida");
+            notificacao.classList.add("lida");
+
+            botao.remove();
+
+            atualizarContadores();
+            salvarEstado();
+        }
+
+        // MARCAR TODAS COMO LIDAS
+        function marcarTodasComoLidas() {
+
+            document.querySelectorAll(".notificacao.nao-lida").forEach(function(notificacao) {
+
+                notificacao.classList.remove("nao-lida");
+                notificacao.classList.add("lida");
+
+                const botao = notificacao.querySelector(".marcar-lida");
+
+                if (botao) {
+                    botao.remove();
+                }
+
+            });
+
+            atualizarContadores();
+            salvarEstado();
+        }
+
+        // SALVAR ESTADO NO NAVEGADOR
+        function salvarEstado() {
+
+            const estados = [];
+
+            notificacoes.forEach(function(notificacao) {
+                estados.push(notificacao.classList.contains("lida"));
+            });
+
+            localStorage.setItem(
+                "pbema_notificacoes_joao",
+                JSON.stringify(estados)
+            );
+        }
+
+        // RECUPERAR ESTADO SALVO
+        function carregarEstado() {
+
+            const dadosSalvos = localStorage.getItem(
+                "pbema_notificacoes_joao"
+            );
+
+            if (dadosSalvos) {
+
+                const estados = JSON.parse(dadosSalvos);
+
+                notificacoes.forEach(function(notificacao, indice) {
+
+                    if (estados[indice] === true) {
+
+                        notificacao.classList.remove("nao-lida");
+                        notificacao.classList.add("lida");
+
+                        const botao = notificacao.querySelector(".marcar-lida");
+
+                        if (botao) {
+                            botao.remove();
+                        }
+                    }
+
+                });
+            }
+
+            atualizarContadores();
+        }
+
+        carregarEstado();
+    </script>
+
+</body>
+</html>
+```

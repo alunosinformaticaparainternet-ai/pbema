@@ -1,0 +1,1072 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PBEMA - Boletim Escolar</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #eef4f8;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+/* CABEÇALHO */
+
+header {
+    background: linear-gradient(120deg, #1597db, #087bd9);
+    color: white;
+    padding: 22px 5%;
+    box-shadow: 0 4px 15px rgba(0,0,0,.12);
+}
+
+.header-conteudo {
+    max-width: 1150px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo h2 {
+    margin: 0;
+    font-size: 25px;
+    letter-spacing: 1px;
+}
+
+.logo p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    opacity: .9;
+}
+
+.usuario-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 43px;
+    height: 43px;
+    background: white;
+    color: #087bd9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.usuario-header p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.usuario-header small {
+    opacity: .9;
+}
+
+/* CONTEÚDO */
+
+.conteudo {
+    width: 92%;
+    max-width: 1100px;
+    margin: -25px auto 70px;
+    position: relative;
+}
+
+.painel {
+    background: white;
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.08);
+}
+
+.topo-pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.topo-pagina h2 {
+    color: #214a93;
+    font-size: 27px;
+    margin: 0;
+}
+
+.topo-pagina p {
+    color: #777;
+    margin: 7px 0 0;
+    font-size: 13px;
+}
+
+.voltar {
+    background: #214a93;
+    color: white;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.voltar:hover {
+    background: #12346e;
+    transform: translateY(-2px);
+}
+
+/* SELETOR DE PERÍODO */
+
+.filtro-periodo {
+    background: #f4f8ff;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #e1eafa;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.filtro-periodo label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    color: #214a93;
+    margin-bottom: 8px;
+}
+
+.filtro-periodo select {
+    width: 260px;
+    max-width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd9ec;
+    border-radius: 9px;
+    background: white;
+    color: #214a93;
+    font-size: 14px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+}
+
+.filtro-periodo select:focus {
+    border-color: #1597db;
+    box-shadow: 0 0 0 3px rgba(21,151,219,.12);
+}
+
+.periodo-atual {
+    color: #214a93;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* ALUNO */
+
+.aluno {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.info {
+    background: #f4f8ff;
+    padding: 18px;
+    border-left: 5px solid #18a6e7;
+    border-radius: 12px;
+}
+
+.info span {
+    font-size: 12px;
+    color: #777;
+}
+
+.info h3 {
+    margin: 8px 0 0;
+    color: #214a93;
+    font-size: 17px;
+}
+
+/* INDICADORES */
+
+.secao-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 30px 0 18px;
+}
+
+.secao-titulo h3 {
+    color: #214a93;
+    margin: 0;
+    font-size: 18px;
+}
+
+.secao-titulo span {
+    color: #888;
+    font-size: 12px;
+}
+
+.media {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.box {
+    padding: 22px;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    transition: .3s;
+}
+
+.box:hover {
+    transform: translateY(-4px);
+}
+
+.box h2 {
+    font-size: 30px;
+    margin: 0 0 7px;
+}
+
+.box p {
+    margin: 0;
+    font-size: 13px;
+}
+
+.box small {
+    display: block;
+    margin-top: 10px;
+    opacity: .85;
+}
+
+.azul {
+    background: linear-gradient(135deg,#214a93,#087bd9);
+}
+
+.verde {
+    background: linear-gradient(135deg,#16b65d,#0b9749);
+}
+
+.amarelo {
+    background: linear-gradient(135deg,#f59e0b,#d97706);
+}
+
+.vermelho {
+    background: linear-gradient(135deg,#ef4444,#ce2525);
+}
+
+/* TABELA */
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #e8edf4;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+th {
+    background: #214a93;
+    color: white;
+    padding: 15px 12px;
+    font-size: 13px;
+    text-align: center;
+}
+
+td {
+    padding: 15px 12px;
+    text-align: center;
+    border-bottom: 1px solid #ececec;
+    font-size: 13px;
+}
+
+tbody tr:hover {
+    background: #f4f8ff;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.nota {
+    font-weight: bold;
+    color: #214a93;
+}
+
+.aprovado {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+.recuperacao {
+    color: #d97706;
+    font-weight: bold;
+}
+
+.reprovado {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.sem-nota {
+    color: #999;
+    font-weight: bold;
+}
+
+.status {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.status-aprovado {
+    background: #e4f8ec;
+    color: #098b43;
+}
+
+.status-recuperacao {
+    background: #fff3d9;
+    color: #bd7900;
+}
+
+.status-reprovado {
+    background: #ffe9e9;
+    color: #d52d2d;
+}
+
+.status-pendente {
+    background: #f0f1f3;
+    color: #777;
+}
+
+/* GRÁFICO */
+
+.grafico {
+    background: #f8faff;
+    padding: 22px;
+    border-radius: 15px;
+    border: 1px solid #e7edf6;
+}
+
+.grafico-legenda {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #666;
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.cor-legenda {
+    width: 11px;
+    height: 11px;
+    border-radius: 3px;
+    background: #214a93;
+}
+
+.grafico-barras {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+    align-items: end;
+    min-height: 180px;
+}
+
+.coluna-grafico {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    height: 175px;
+    gap: 8px;
+}
+
+.barra-fundo {
+    width: 100%;
+    max-width: 65px;
+    height: 125px;
+    background: #e6edf6;
+    border-radius: 8px;
+    display: flex;
+    align-items: end;
+    overflow: hidden;
+}
+
+.barra {
+    width: 100%;
+    background: linear-gradient(180deg,#1aa7e8,#214a93);
+    border-radius: 8px;
+    transition: height .4s;
+}
+
+.coluna-grafico strong {
+    font-size: 12px;
+    color: #214a93;
+}
+
+.coluna-grafico small {
+    font-size: 11px;
+    color: #777;
+}
+
+/* SITUAÇÃO */
+
+.mensagem {
+    margin-top: 25px;
+    padding: 18px;
+    border-radius: 12px;
+    background: #eaf5ff;
+    border-left: 5px solid #1597db;
+    color: #214a93;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.mensagem.alerta {
+    background: #fff4e5;
+    border-color: #f59e0b;
+    color: #a16207;
+}
+
+.mensagem.perigo {
+    background: #fff1f1;
+    border-color: #e53935;
+    color: #b52c2c;
+}
+
+/* RODAPÉ */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+    font-size: 12px;
+}
+
+/* RESPONSIVIDADE */
+
+@media(max-width:800px) {
+    .media {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .aluno {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:550px) {
+    .conteudo {
+        width: 94%;
+        margin-top: -15px;
+    }
+
+    .painel {
+        padding: 19px;
+    }
+
+    .media {
+        grid-template-columns: 1fr;
+    }
+
+    .topo-pagina h2 {
+        font-size: 22px;
+    }
+
+    .filtro-periodo > div {
+        width: 100%;
+    }
+
+    .filtro-periodo select {
+        width: 100%;
+    }
+
+    .grafico-barras {
+        gap: 8px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-conteudo">
+
+        <div class="logo">
+            <h2>PBEMA</h2>
+            <p>Plataforma de Boletim e Monitoramento Escolar</p>
+        </div>
+
+    
+
+    </div>
+</header>
+
+<div class="conteudo">
+
+<main class="painel">
+
+    <div class="topo-pagina">
+        <div>
+            <h2>Boletim Escolar</h2>
+            <p>Acompanhe suas notas, médias e evolução acadêmica.</p>
+        </div>
+
+        <a href="{{ url_for('pagina_inicio') }}" class="voltar">← Início</a>
+    </div>
+
+    <!-- SELETOR DE BIMESTRE -->
+
+    <div class="filtro-periodo">
+
+        <div>
+            <label for="periodoSelecionado">CONSULTAR BOLETIM POR PERÍODO</label>
+
+            <select id="periodoSelecionado">
+                <option value="anual">Boletim completo - 2026</option>
+                <option value="0">1º Bimestre</option>
+                <option value="1">2º Bimestre</option>
+                <option value="2">3º Bimestre</option>
+                <option value="3">4º Bimestre</option>
+            </select>
+        </div>
+
+        <div class="periodo-atual" id="periodoAtual">
+            VISUALIZAÇÃO ANUAL
+        </div>
+
+    </div>
+
+    <!-- INFORMAÇÕES DO ALUNO -->
+
+    <div class="aluno">
+
+        <div class="info">
+            <span>ALUNO</span>
+            <h3>João Correa</h3>
+        </div>
+
+        <div class="info">
+            <span>TURMA</span>
+            <h3>1º Ano A</h3>
+        </div>
+
+        <div class="info">
+            <span>ANO LETIVO</span>
+            <h3>2026</h3>
+        </div>
+
+    </div>
+
+    <!-- INDICADORES -->
+
+    <div class="secao-titulo">
+        <h3>Resumo acadêmico</h3>
+        <span id="periodoResumo">Ano letivo de 2026</span>
+    </div>
+
+    <div class="media">
+
+        <div class="box azul">
+            <h2 id="mediaGeral">7,36</h2>
+            <p>Média geral</p>
+            <small>Desempenho acadêmico</small>
+        </div>
+
+        <div class="box verde">
+            <h2 id="totalAprovadas">6</h2>
+            <p>Aprovadas</p>
+            <small>Disciplinas com média suficiente</small>
+        </div>
+
+        <div class="box amarelo">
+            <h2 id="totalRecuperacao">1</h2>
+            <p>Recuperação</p>
+            <small>Precisam de atenção</small>
+        </div>
+
+        <div class="box vermelho">
+            <h2 id="totalReprovadas">1</h2>
+            <p>Reprovadas</p>
+            <small>Resultado abaixo da média</small>
+        </div>
+
+    </div>
+
+    <!-- TABELA DE NOTAS -->
+
+    <div class="secao-titulo">
+        <h3 id="tituloTabela">Desempenho por disciplina</h3>
+        <span id="quantidadeDisciplinas">8 disciplinas</span>
+    </div>
+
+    <div class="tabela-container">
+
+        <table>
+
+            <thead id="cabecalhoTabela">
+                <tr>
+                    <th>Disciplina</th>
+                    <th>1º Bim.</th>
+                    <th>2º Bim.</th>
+                    <th>3º Bim.</th>
+                    <th>4º Bim.</th>
+                    <th>Média</th>
+                    <th>Situação</th>
+                </tr>
+            </thead>
+
+            <tbody id="tabelaNotas"></tbody>
+
+        </table>
+
+    </div>
+
+    <!-- GRÁFICO -->
+
+    <div class="secao-titulo">
+        <h3>Evolução das notas</h3>
+        <span>Desempenho por bimestre</span>
+    </div>
+
+    <div class="grafico">
+
+        <div class="grafico-legenda">
+            <div class="legenda-item">
+                <div class="cor-legenda"></div>
+                <span>Média das disciplinas</span>
+            </div>
+        </div>
+
+        <div class="grafico-barras" id="graficoNotas"></div>
+
+    </div>
+
+    <!-- MENSAGEM AUTOMÁTICA -->
+
+    <div class="mensagem" id="mensagemBoletim">
+        Acompanhe suas notas e mantenha seu desempenho escolar.
+    </div>
+
+</main>
+
+</div>
+
+<footer>
+    © 2026 PBEMA - Sistema de Acompanhamento Escolar.
+    <br>Todos os direitos reservados.
+</footer>
+
+<script>
+
+// DISCIPLINAS E NOTAS
+// Cada lista representa: 1º, 2º, 3º e 4º bimestre.
+// Valores null representam notas ainda não lançadas.
+
+const disciplinas = [
+    { nome: "Matemática", notas: [8.0, 7.5, 8.0, 8.5] },
+    { nome: "Português", notas: [9.0, 8.5, 9.0, 9.0] },
+    { nome: "História", notas: [6.0, 5.5, 6.0, null] },
+    { nome: "Geografia", notas: [8.5, 8.0, 8.5, 9.0] },
+    { nome: "Biologia", notas: [7.5, 7.0, 8.0, 8.0] },
+    { nome: "Química", notas: [6.5, 6.0, 6.5, 7.0] },
+    { nome: "Física", notas: [5.0, 4.5, 5.0, null] },
+    { nome: "Educação Física", notas: [10.0, 9.5, 10.0, 10.0] }
+];
+
+const MEDIA_APROVACAO = 7;
+const MEDIA_RECUPERACAO = 5;
+
+const seletor = document.getElementById("periodoSelecionado");
+const tabela = document.getElementById("tabelaNotas");
+
+// FORMATAÇÃO
+
+function formatarNota(valor) {
+    if (valor === null || valor === undefined) {
+        return "—";
+    }
+
+    return valor.toFixed(1).replace(".", ",");
+}
+
+function calcularMedia(notas) {
+
+    const validas = notas.filter(nota => nota !== null);
+
+    if (validas.length === 0) {
+        return null;
+    }
+
+    return validas.reduce((total, nota) => total + nota, 0) / validas.length;
+}
+
+// SITUAÇÃO DO ALUNO
+
+function obterSituacao(media, completa = true) {
+
+    if (media === null || !completa) {
+        return {
+            texto: "Pendente",
+            classe: "sem-nota",
+            badge: "status-pendente"
+        };
+    }
+
+    if (media >= MEDIA_APROVACAO) {
+        return {
+            texto: "Aprovado",
+            classe: "aprovado",
+            badge: "status-aprovado"
+        };
+    }
+
+    if (media >= MEDIA_RECUPERACAO) {
+        return {
+            texto: "Recuperação",
+            classe: "recuperacao",
+            badge: "status-recuperacao"
+        };
+    }
+
+    return {
+        texto: "Reprovado",
+        classe: "reprovado",
+        badge: "status-reprovado"
+    };
+}
+
+// RENDERIZA TABELA
+
+function atualizarBoletim() {
+
+    const periodo = seletor.value;
+
+    tabela.innerHTML = "";
+
+    let somaMedias = 0;
+    let quantidadeMedias = 0;
+
+    let aprovadas = 0;
+    let recuperacao = 0;
+    let reprovadas = 0;
+    let pendentes = 0;
+
+    const periodoCompleto = periodo === "anual";
+
+    if (periodoCompleto) {
+
+        document.getElementById("cabecalhoTabela").innerHTML = `
+            <tr>
+                <th>Disciplina</th>
+                <th>1º Bim.</th>
+                <th>2º Bim.</th>
+                <th>3º Bim.</th>
+                <th>4º Bim.</th>
+                <th>Média</th>
+                <th>Situação</th>
+            </tr>
+        `;
+
+        document.getElementById("tituloTabela").textContent =
+            "Desempenho por disciplina";
+
+        document.getElementById("periodoAtual").textContent =
+            "VISUALIZAÇÃO ANUAL";
+
+        document.getElementById("periodoResumo").textContent =
+            "Ano letivo de 2026";
+
+    } else {
+
+        document.getElementById("cabecalhoTabela").innerHTML = `
+            <tr>
+                <th>Disciplina</th>
+                <th>Nota</th>
+                <th>Média parcial</th>
+                <th>Situação</th>
+            </tr>
+        `;
+
+        document.getElementById("tituloTabela").textContent =
+            "Notas do " + (Number(periodo) + 1) + "º bimestre";
+
+        document.getElementById("periodoAtual").textContent =
+            "CONSULTA DO " + (Number(periodo) + 1) + "º BIMESTRE";
+
+        document.getElementById("periodoResumo").textContent =
+            (Number(periodo) + 1) + "º Bimestre de 2026";
+
+    }
+
+    disciplinas.forEach(disciplina => {
+
+        const media = calcularMedia(disciplina.notas);
+
+        const notasLancadas = disciplina.notas.filter(
+            nota => nota !== null
+        ).length;
+
+        const mediaFinal = notasLancadas === 4 ? media : null;
+
+        let situacao;
+        let conteudoLinha = "";
+
+        if (periodoCompleto) {
+
+            situacao = obterSituacao(mediaFinal, notasLancadas === 4);
+
+            conteudoLinha = `
+                <td>${formatarNota(disciplina.notas[0])}</td>
+                <td>${formatarNota(disciplina.notas[1])}</td>
+                <td>${formatarNota(disciplina.notas[2])}</td>
+                <td>${formatarNota(disciplina.notas[3])}</td>
+                <td class="nota">${formatarNota(mediaFinal)}</td>
+            `;
+
+        } else {
+
+            const indice = Number(periodo);
+            const nota = disciplina.notas[indice];
+
+            situacao = nota === null
+                ? obterSituacao(null)
+                : obterSituacao(nota, true);
+
+            conteudoLinha = `
+                <td class="nota">${formatarNota(nota)}</td>
+                <td>${formatarNota(media)}</td>
+            `;
+
+        }
+
+        if (periodoCompleto) {
+
+            if (mediaFinal !== null) {
+
+                somaMedias += mediaFinal;
+                quantidadeMedias++;
+
+                if (situacao.texto === "Aprovado") aprovadas++;
+                else if (situacao.texto === "Recuperação") recuperacao++;
+                else if (situacao.texto === "Reprovado") reprovadas++;
+
+            } else {
+                pendentes++;
+            }
+
+        } else {
+
+            const notaAtual = disciplina.notas[Number(periodo)];
+
+            if (notaAtual === null) {
+                pendentes++;
+            } else {
+
+                somaMedias += notaAtual;
+                quantidadeMedias++;
+
+                if (situacao.texto === "Aprovado") aprovadas++;
+                else if (situacao.texto === "Recuperação") recuperacao++;
+                else if (situacao.texto === "Reprovado") reprovadas++;
+
+            }
+
+        }
+
+        const linha = document.createElement("tr");
+
+        linha.innerHTML = `
+            <td><strong>${disciplina.nome}</strong></td>
+            ${conteudoLinha}
+            <td>
+                <span class="status ${situacao.badge}">
+                    ${situacao.texto}
+                </span>
+            </td>
+        `;
+
+        tabela.appendChild(linha);
+
+    });
+
+    // INDICADORES
+
+    const mediaGeral = quantidadeMedias > 0
+        ? somaMedias / quantidadeMedias
+        : 0;
+
+    document.getElementById("mediaGeral").textContent =
+        mediaGeral.toFixed(2).replace(".", ",");
+
+    document.getElementById("totalAprovadas").textContent = aprovadas;
+
+    document.getElementById("totalRecuperacao").textContent = recuperacao;
+
+    document.getElementById("totalReprovadas").textContent = reprovadas;
+
+    document.getElementById("quantidadeDisciplinas").textContent =
+        disciplinas.length + " disciplinas";
+
+    atualizarMensagem(mediaGeral, aprovadas, recuperacao, reprovadas, pendentes);
+
+    atualizarGrafico();
+}
+
+// MENSAGEM DE DESEMPENHO
+
+function atualizarMensagem(media, aprovadas, recuperacao, reprovadas, pendentes) {
+
+    const mensagem = document.getElementById("mensagemBoletim");
+
+    if (pendentes > 0) {
+
+        mensagem.className = "mensagem";
+
+        mensagem.innerHTML = `
+            <strong>Boletim em andamento!</strong>
+            Existem ${pendentes} disciplina(s) com notas ainda não lançadas
+            em todos os períodos. Os resultados poderão mudar após a atualização.
+        `;
+
+    } else if (media >= MEDIA_APROVACAO && reprovadas === 0 && recuperacao === 0) {
+
+        mensagem.className = "mensagem";
+
+        mensagem.innerHTML = `
+            <strong>Excelente desempenho!</strong>
+            João Correa apresenta um ótimo resultado acadêmico.
+            Continue mantendo a dedicação aos estudos!
+        `;
+
+    } else if (reprovadas > 0) {
+
+        mensagem.className = "mensagem perigo";
+
+        mensagem.innerHTML = `
+            <strong>Atenção ao desempenho escolar!</strong>
+            Existem ${reprovadas} disciplina(s) com resultados abaixo de 5,0.
+            É importante buscar orientação pedagógica.
+        `;
+
+    } else if (recuperacao > 0) {
+
+        mensagem.className = "mensagem alerta";
+
+        mensagem.innerHTML = `
+            <strong>Acompanhamento necessário!</strong>
+            Existem ${recuperacao} disciplina(s) em situação de recuperação.
+            Reforce os estudos e acompanhe as próximas avaliações.
+        `;
+
+    } else {
+
+        mensagem.className = "mensagem";
+
+        mensagem.innerHTML = `
+            <strong>Bom trabalho!</strong>
+            Continue acompanhando suas notas e mantendo sua evolução escolar.
+        `;
+
+    }
+
+}
+
+// GRÁFICO DE EVOLUÇÃO
+
+function atualizarGrafico() {
+
+    const grafico = document.getElementById("graficoNotas");
+
+    grafico.innerHTML = "";
+
+    const nomes = [
+        "1º Bimestre",
+        "2º Bimestre",
+        "3º Bimestre",
+        "4º Bimestre"
+    ];
+
+    for (let i = 0; i < 4; i++) {
+
+        const notas = disciplinas
+            .map(disciplina => disciplina.notas[i])
+            .filter(nota => nota !== null);
+
+        const media = notas.length > 0
+            ? notas.reduce((total, nota) => total + nota, 0) / notas.length
+            : 0;
+
+        const percentual = (media / 10) * 100;
+
+        const coluna = document.createElement("div");
+
+        coluna.className = "coluna-grafico";
+
+        coluna.innerHTML = `
+            <strong>${notas.length ? media.toFixed(1).replace(".", ",") : "—"}</strong>
+
+            <div class="barra-fundo">
+                <div class="barra" style="height:${percentual}%"></div>
+            </div>
+
+            <small>${nomes[i]}</small>
+        `;
+
+        grafico.appendChild(coluna);
+
+    }
+
+}
+
+// EVENTO DE MUDANÇA DE PERÍODO
+
+seletor.addEventListener("change", atualizarBoletim);
+
+// INICIALIZAÇÃO
+
+atualizarBoletim();
+
+</script>
+
+</body>
+</html>
+```

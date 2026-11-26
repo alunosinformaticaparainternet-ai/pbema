@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PBEMA - Central de Ajuda</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #eef4f8;
+            color: #26364a;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1597db, #087bd9);
+            color: white;
+            padding: 17px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 3px 12px rgba(0,0,0,.12);
+        }
+
+        .perfil {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 49px;
+            height: 49px;
+            border-radius: 50%;
+            background: white;
+            color: #087bd9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            font-weight: bold;
+            border: 2px solid white;
+        }
+
+        .perfil-texto h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .perfil-texto p {
+            font-size: 12px;
+            opacity: .9;
+        }
+
+        .acoes-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .acoes-header a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .notificacao {
+            font-size: 24px;
+        }
+
+        .voltar {
+            padding: 10px 15px;
+            background: rgba(255,255,255,.16);
+            border-radius: 9px;
+            font-size: 14px;
+            transition: .2s;
+        }
+
+        .voltar:hover {
+            background: white;
+            color: #087bd9;
+        }
+
+        main {
+            width: 92%;
+            max-width: 1100px;
+            margin: 32px auto;
+        }
+
+        .titulo {
+            margin-bottom: 24px;
+        }
+
+        .titulo h1 {
+            color: #075fb1;
+            font-size: 29px;
+            margin-bottom: 8px;
+        }
+
+        .titulo p {
+            color: #68798b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* ACESSOS RÁPIDOS */
+
+        .atalhos {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .atalho {
+            background: white;
+            border: 1px solid #e0eaf2;
+            border-radius: 15px;
+            padding: 17px 12px;
+            text-align: center;
+            text-decoration: none;
+            color: #214a93;
+            box-shadow: 0 3px 12px rgba(0,0,0,.04);
+            transition: .2s;
+        }
+
+        .atalho:hover {
+            transform: translateY(-3px);
+            border-color: #1597db;
+            box-shadow: 0 7px 18px rgba(8,123,217,.12);
+        }
+
+        .atalho .icone {
+            font-size: 27px;
+            display: block;
+            margin-bottom: 9px;
+        }
+
+        .atalho strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .atalho small {
+            color: #8291a0;
+            font-size: 11px;
+        }
+
+        /* CHAT */
+
+        .assistente {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #e0eaf2;
+            box-shadow: 0 5px 22px rgba(0,0,0,.06);
+        }
+
+        .chat-topo {
+            background: linear-gradient(135deg, #075fb1, #087bd9);
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+        }
+
+        .robo {
+            width: 58px;
+            height: 58px;
+            border-radius: 17px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+        }
+
+        .chat-topo-texto h2 {
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .chat-topo-texto p {
+            font-size: 12px;
+            opacity: .9;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 7px;
+            font-size: 11px;
+        }
+
+        .status-bolinha {
+            width: 8px;
+            height: 8px;
+            background: #4be477;
+            border-radius: 50%;
+        }
+
+        .chat {
+            height: 390px;
+            overflow-y: auto;
+            padding: 24px;
+            background: #f7fafe;
+        }
+
+        .mensagem {
+            display: flex;
+            margin-bottom: 17px;
+        }
+
+        .robo-msg {
+            justify-content: flex-start;
+        }
+
+        .usuario-msg {
+            justify-content: flex-end;
+        }
+
+        .mensagem-conteudo {
+            max-width: 78%;
+            padding: 14px 17px;
+            border-radius: 15px;
+            font-size: 14px;
+            line-height: 1.65;
+            overflow-wrap: anywhere;
+        }
+
+        .robo-msg .mensagem-conteudo {
+            background: white;
+            border: 1px solid #e1eaf2;
+            color: #34465a;
+            border-bottom-left-radius: 4px;
+        }
+
+        .usuario-msg .mensagem-conteudo {
+            background: #087bd9;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .link-resposta {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 9px 13px;
+            border-radius: 9px;
+            background: #e8f4ff;
+            color: #075fb1;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            border: 1px solid #cce5fa;
+            transition: .2s;
+        }
+
+        .link-resposta:hover {
+            background: #087bd9;
+            color: white;
+        }
+
+        .digitando {
+            color: #8291a0;
+            font-size: 12px;
+            margin: 0 0 12px 5px;
+        }
+
+        /* PERGUNTAS */
+
+        .perguntas {
+            padding: 18px 23px;
+            border-top: 1px solid #e8eef4;
+        }
+
+        .perguntas h3 {
+            color: #40546a;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .botoes-perguntas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .pergunta {
+            border: 1px solid #cbddea;
+            background: #f5f9fd;
+            color: #075fb1;
+            padding: 9px 13px;
+            border-radius: 9px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .pergunta:hover {
+            background: #087bd9;
+            color: white;
+            border-color: #087bd9;
+        }
+
+        /* CAMPO DE ENVIO */
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+            padding: 17px 23px;
+            border-top: 1px solid #e8eef4;
+            background: white;
+        }
+
+        .chat-input input {
+            flex: 1;
+            min-width: 0;
+            height: 48px;
+            border: 1px solid #d5e0e9;
+            border-radius: 11px;
+            padding: 0 15px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .chat-input input:focus {
+            border-color: #087bd9;
+            box-shadow: 0 0 0 3px rgba(8,123,217,.1);
+        }
+
+        .enviar {
+            width: 50px;
+            height: 48px;
+            border: none;
+            border-radius: 11px;
+            background: #087bd9;
+            color: white;
+            font-size: 21px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .enviar:hover {
+            background: #075fb1;
+        }
+
+        /* AVISO */
+
+        .aviso {
+            margin-top: 20px;
+            padding: 17px;
+            background: #e6f3ff;
+            border-left: 4px solid #087bd9;
+            border-radius: 10px;
+            color: #4d647a;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* RODAPÉ */
+
+        footer {
+            max-width: 1100px;
+            width: 92%;
+            margin: 30px auto 25px;
+            padding: 15px;
+            background: white;
+            border: 1px solid #e0eaf2;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #087bd9;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 9px 14px;
+            border-radius: 8px;
+        }
+
+        footer a:hover {
+            background: #eaf5ff;
+        }
+
+        @media(max-width: 750px) {
+            .atalhos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 500px) {
+            header {
+                padding: 13px 4%;
+            }
+
+            .perfil-texto h3 {
+                font-size: 14px;
+            }
+
+            .perfil-texto p {
+                font-size: 10px;
+            }
+
+            .avatar {
+                width: 42px;
+                height: 42px;
+            }
+
+            .voltar {
+                font-size: 12px;
+                padding: 9px;
+            }
+
+            main {
+                width: 94%;
+                margin-top: 24px;
+            }
+
+            .titulo h1 {
+                font-size: 24px;
+            }
+
+            .chat-topo {
+                padding: 16px;
+            }
+
+            .robo {
+                width: 50px;
+                height: 50px;
+                font-size: 29px;
+            }
+
+            .chat {
+                height: 400px;
+                padding: 16px;
+            }
+
+            .mensagem-conteudo {
+                max-width: 92%;
+                font-size: 13px;
+            }
+
+            .perguntas,
+            .chat-input {
+                padding: 14px;
+            }
+
+            .notificacao {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+   <div class="logo">
+            <h2>PBEMA</h2>
+            <p>Plataforma de Boletim e Monitoramento Escolar</p>
+        </div>
+
+
+    <div class="acoes-header">
+        
+
+        <a href="{{ url_for('pagina_inicio') }}" class="voltar">
+            ← Início
+        </a>
+    </div>
+</header>
+
+<main>
+
+    <div class="titulo">
+        <h1>Central de Ajuda</h1>
+        <p>Encontre rapidamente as informações que você procura no PBEMA.</p>
+    </div>
+
+    <!-- ASSISTENTE -->
+
+    <section class="assistente">
+
+        <div class="chat-topo">
+            <div class="robo">🤖</div>
+
+            <div class="chat-topo-texto">
+                <h2>Assistente Virtual PBEMA</h2>
+                <p>Posso orientar você dentro do sistema.</p>
+
+                <div class="status">
+                    <span class="status-bolinha"></span>
+                    Assistente disponível
+                </div>
+            </div>
+        </div>
+
+        <div class="chat" id="chat">
+
+            <div class="mensagem robo-msg">
+                <div class="mensagem-conteudo">
+                    Olá, {{ session.get('usuario_nome', 'usuário') }}! 👋
+
+                    <br><br>
+
+                    Sou o assistente virtual do PBEMA. Posso ajudar você a
+                    encontrar páginas e informações escolares.
+
+                    <br><br>
+
+                    Você pode perguntar, por exemplo:
+                    <br>
+                    • Onde vejo as notas?
+                    <br>
+                    • Como consulto as faltas?
+                    <br>
+                    • Onde encontro os dados do aluno?
+                    <br>
+                    • Como atualizo meu perfil?
+
+                    <br><br>
+
+                    Digite sua dúvida ou escolha uma das perguntas abaixo!
+                </div>
+            </div>
+
+        </div>
+
+        <div class="perguntas">
+            <h3>Escolha uma pergunta rápida:</h3>
+
+            <div class="botoes-perguntas">
+                <button class="pergunta" onclick="perguntaRapida('Onde vejo as notas?')">
+                    Consultar notas
+                </button>
+
+                <button class="pergunta" onclick="perguntaRapida('Como vejo as faltas?')">
+                    Ver frequência
+                </button>
+
+                <button class="pergunta" onclick="perguntaRapida('Como está o desempenho?')">
+                    Desempenho
+                </button>
+
+                <button class="pergunta" onclick="perguntaRapida('Onde vejo os dados do aluno?')">
+                    Dados do aluno
+                </button>
+
+                <button class="pergunta" onclick="perguntaRapida('Como altero meu perfil?')">
+                    Editar perfil
+                </button>
+
+                <button class="pergunta" onclick="perguntaRapida('Onde vejo os avisos?')">
+                    Avisos
+                </button>
+            </div>
+        </div>
+
+        <form class="chat-input" onsubmit="enviarPergunta(event)">
+            <input
+                type="text"
+                id="pergunta"
+                placeholder="Ex.: Onde encontro minhas notas?"
+                autocomplete="off"
+                required
+            >
+
+            <button type="submit" class="enviar" title="Enviar pergunta">
+                ➤
+            </button>
+        </form>
+
+    </section>
+
+    <div class="aviso">
+        <strong>💡 Dica:</strong>
+        Você também pode utilizar os atalhos acima para abrir diretamente
+        as páginas do PBEMA. O assistente orienta sua navegação, mas não
+        substitui as informações oficiais registradas pela escola.
+    </div>
+
+</main>
+
+<footer>
+   
+</footer>
+
+<script>
+
+    const DESTINOS = {
+        notas: "{{ url_for('pagina_notas') }}",
+        frequencia: "{{ url_for('pagina_frequencia') }}",
+        desempenho: "{{ url_for('pagina_desempenho') }}",
+        informacoes: "{{ url_for('pagina_informacoes') }}",
+        aluno: "{{ url_for('pagina_visualizar_aluno') }}",
+        perfil: "{{ url_for('pagina_perfil') }}",
+        notificacoes: "{{ url_for('pagina_notificacoes') }}",
+        inicio: "{{ url_for('pagina_inicio') }}",
+        login: "{{ url_for('pagina_login') }}",
+        ajuda: "{{ url_for('pagina_ajuda') }}"
+    };
+
+    function normalizar(texto) {
+        return texto.toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function adicionarMensagem(texto, tipo) {
+        const chat = document.getElementById("chat");
+
+        const mensagem = document.createElement("div");
+        mensagem.className = "mensagem " +
+            (tipo === "usuario" ? "usuario-msg" : "robo-msg");
+
+        const conteudo = document.createElement("div");
+        conteudo.className = "mensagem-conteudo";
+
+        // A mensagem do usuário é inserida como texto, sem interpretar HTML.
+        conteudo.textContent = texto;
+
+        mensagem.appendChild(conteudo);
+        chat.appendChild(mensagem);
+
+        chat.scrollTop = chat.scrollHeight;
+    }
+
+    function adicionarResposta(texto, destino, rotulo) {
+        const chat = document.getElementById("chat");
+
+        const mensagem = document.createElement("div");
+        mensagem.className = "mensagem robo-msg";
+
+        const conteudo = document.createElement("div");
+        conteudo.className = "mensagem-conteudo";
+
+        const textoResposta = document.createElement("div");
+        textoResposta.textContent = texto;
+
+        conteudo.appendChild(textoResposta);
+
+        if (destino) {
+            const link = document.createElement("a");
+            link.className = "link-resposta";
+            link.href = destino;
+            link.textContent = rotulo || "Abrir página";
+            conteudo.appendChild(link);
+        }
+
+        mensagem.appendChild(conteudo);
+        chat.appendChild(mensagem);
+
+        chat.scrollTop = chat.scrollHeight;
+    }
+
+    function responderPergunta(pergunta) {
+        const texto = normalizar(pergunta);
+
+        // NOTAS
+        if (
+            texto.includes("nota") ||
+            texto.includes("media") ||
+            texto.includes("boletim") ||
+            texto.includes("materia") ||
+            texto.includes("avaliacao")
+        ) {
+            return {
+                texto: "Para consultar as notas, acesse a página de Notas. Lá você poderá acompanhar as disciplinas e os resultados registrados.",
+                destino: DESTINOS.notas,
+                rotulo: "📚 Abrir minhas notas"
+            };
+        }
+
+        // FREQUÊNCIA
+        if (
+            texto.includes("frequencia") ||
+            texto.includes("falta") ||
+            texto.includes("presenca") ||
+            texto.includes("aula") ||
+            texto.includes("faltas")
+        ) {
+            return {
+                texto: "Na página de Frequência você pode acompanhar as presenças, faltas e o percentual de frequência do aluno.",
+                destino: DESTINOS.frequencia,
+                rotulo: "📅 Consultar frequência"
+            };
+        }
+
+        // DESEMPENHO
+        if (
+            texto.includes("desempenho") ||
+            texto.includes("rendimento") ||
+            texto.includes("evolucao") ||
+            texto.includes("resultado") ||
+            texto.includes("situacao escolar")
+        ) {
+            return {
+                texto: "A página de Desempenho reúne informações sobre o rendimento escolar, médias e acompanhamento do aluno.",
+                destino: DESTINOS.desempenho,
+                rotulo: "📊 Ver desempenho"
+            };
+        }
+
+        // DADOS DO ALUNO
+        if (
+            texto.includes("dados do aluno") ||
+            texto.includes("visualizar aluno") ||
+            texto.includes("estudante") ||
+            texto.includes("matricula") ||
+            texto.includes("nascimento")
+        ) {
+            return {
+                texto: "Você pode consultar os dados cadastrados do estudante na página Visualizar Aluno.",
+                destino: DESTINOS.aluno,
+                rotulo: "👨‍🎓 Visualizar aluno"
+            };
+        }
+
+        // INFORMAÇÕES ESCOLARES
+        if (
+            texto.includes("escola") ||
+            texto.includes("curso") ||
+            texto.includes("turma") ||
+            texto.includes("turno") ||
+            texto.includes("ano letivo") ||
+            texto.includes("informacoes escolares")
+        ) {
+            return {
+                texto: "Na página Informações você encontra os dados escolares, como escola, turma, curso e turno.",
+                destino: DESTINOS.informacoes,
+                rotulo: "🎓 Abrir informações escolares"
+            };
+        }
+
+        // PERFIL
+        if (
+            texto.includes("perfil") ||
+            texto.includes("meus dados") ||
+            texto.includes("editar cadastro") ||
+            texto.includes("alterar nome") ||
+            texto.includes("telefone") ||
+            texto.includes("endereco")
+        ) {
+            return {
+                texto: "Na página de Perfil você pode consultar e atualizar seus dados pessoais cadastrados.",
+                destino: DESTINOS.perfil,
+                rotulo: "👤 Abrir meu perfil"
+            };
+        }
+
+        // NOTIFICAÇÕES
+        if (
+            texto.includes("notificacao") ||
+            texto.includes("aviso") ||
+            texto.includes("mensagem da escola") ||
+            texto.includes("comunicado")
+        ) {
+            return {
+                texto: "Os avisos e comunicados recebidos ficam disponíveis na área de Notificações.",
+                destino: DESTINOS.notificacoes,
+                rotulo: "🔔 Ver notificações"
+            };
+        }
+
+        // LOGIN E SENHA
+        if (
+            texto.includes("senha") ||
+            texto.includes("login") ||
+            texto.includes("entrar") ||
+            texto.includes("acessar") ||
+            texto.includes("acesso")
+        ) {
+            return {
+                texto: "Para entrar no PBEMA, informe seu e-mail e sua senha cadastrados. Caso tenha esquecido a senha, utilize a opção de recuperação na página de login.",
+                destino: DESTINOS.login,
+                rotulo: "🔐 Ir para o login"
+            };
+        }
+
+        // AJUDA
+        if (
+            texto.includes("ajuda") ||
+            texto.includes("duvida") ||
+            texto.includes("suporte")
+        ) {
+            return {
+                texto: "Posso orientar você sobre notas, frequência, desempenho, informações escolares, dados do aluno, perfil e notificações. Escreva o nome da página que deseja acessar."
+            };
+        }
+
+        // SAUDAÇÕES
+        if (
+            texto === "oi" ||
+            texto === "ola" ||
+            texto.includes("bom dia") ||
+            texto.includes("boa tarde") ||
+            texto.includes("boa noite")
+        ) {
+            return {
+                texto: "Olá! 👋 Seja bem-vindo ao assistente PBEMA. O que você gostaria de consultar hoje? Posso ajudar com notas, frequência, desempenho ou outras páginas do sistema."
+            };
+        }
+
+        // VOLTAR AO INÍCIO
+        if (
+            texto.includes("inicio") ||
+            texto.includes("painel") ||
+            texto.includes("pagina inicial")
+        ) {
+            return {
+                texto: "Você pode voltar ao painel principal do PBEMA pelo botão abaixo.",
+                destino: DESTINOS.inicio,
+                rotulo: "🏠 Ir para o início"
+            };
+        }
+
+        return {
+            texto: "Ainda não consegui identificar exatamente o que você procura. Tente perguntar de outra forma, por exemplo: Onde vejo as notas? Como consulto as faltas? Como atualizo meu perfil? Onde encontro os avisos?"
+        };
+    }
+
+    function processarPergunta(pergunta) {
+        if (!pergunta.trim()) return;
+
+        adicionarMensagem(pergunta, "usuario");
+
+        const chat = document.getElementById("chat");
+
+        const digitando = document.createElement("div");
+        digitando.className = "digitando";
+        digitando.textContent = "Assistente PBEMA está preparando uma resposta...";
+        chat.appendChild(digitando);
+
+        chat.scrollTop = chat.scrollHeight;
+
+        setTimeout(function() {
+            digitando.remove();
+
+            const resposta = responderPergunta(pergunta);
+
+            adicionarResposta(
+                resposta.texto,
+                resposta.destino,
+                resposta.rotulo
+            );
+        }, 450);
+    }
+
+    function enviarPergunta(event) {
+        event.preventDefault();
+
+        const campo = document.getElementById("pergunta");
+        const pergunta = campo.value.trim();
+
+        if (!pergunta) return;
+
+        campo.value = "";
+        processarPergunta(pergunta);
+        campo.focus();
+    }
+
+    function perguntaRapida(pergunta) {
+        processarPergunta(pergunta);
+    }
+
+</script>
+
+</body>
+</html>

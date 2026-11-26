@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Recuperar senha - PBEMA</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eaf7ff,
+                    #ffffff
+                );
+
+            color: #17213a;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /* =========================
+           TOPO
+        ========================= */
+
+        .topo {
+            width: 100%;
+            height: 8px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #1769aa,
+                    #2696ca,
+                    #43b5e8
+                );
+        }
+
+
+        /* =========================
+           ÁREA PRINCIPAL
+        ========================= */
+
+        .pagina {
+            flex: 1;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 45px 20px;
+        }
+
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card-recuperacao {
+            width: 100%;
+            max-width: 470px;
+
+            background: #ffffff;
+
+            border-radius: 24px;
+
+            padding: 45px;
+
+            border: 1px solid #e4edf5;
+
+            box-shadow:
+                0 15px 40px
+                rgba(25, 76, 120, 0.13);
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .card-recuperacao::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 5px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #1769aa,
+                    #2696ca,
+                    #43b5e8
+                );
+        }
+
+
+        /* =========================
+           LOGO
+        ========================= */
+
+        .logo {
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1769aa,
+                    #2696ca
+                );
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            color: #ffffff;
+
+            font-size: 27px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 8px 20px
+                rgba(38, 150, 202, 0.25);
+        }
+
+
+        /* =========================
+           CABEÇALHO
+        ========================= */
+
+        .cabecalho {
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .cabecalho h1 {
+            font-size: 30px;
+
+            font-weight: 800;
+
+            color: #173b6d;
+
+            margin-bottom: 10px;
+        }
+
+
+        .cabecalho p {
+            color: #718096;
+
+            font-size: 15px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           ETAPAS
+        ========================= */
+
+        .etapa {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 24px;
+        }
+
+
+        .numero {
+            width: 30px;
+            height: 30px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+            background: #e7f5fc;
+
+            color: #1769aa;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+
+            font-weight: 800;
+        }
+
+
+        .etapa span:last-child {
+            color: #52657a;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           CAMPOS
+        ========================= */
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+
+        .campo label {
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #30445f;
+
+            margin-bottom: 8px;
+        }
+
+
+        .campo-input {
+            position: relative;
+        }
+
+
+        .icone {
+            position: absolute;
+
+            left: 15px;
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            font-size: 18px;
+
+            color: #7a91aa;
+
+            pointer-events: none;
+        }
+
+
+        input {
+            width: 100%;
+            height: 52px;
+
+            border: 1.5px solid #d8e2ec;
+
+            border-radius: 11px;
+
+            background: #f8fbfd;
+
+            padding:
+                0 15px 0 45px;
+
+            font-size: 16px;
+
+            color: #17213a;
+
+            outline: none;
+
+            transition: 0.25s;
+        }
+
+
+        input::placeholder {
+            color: #a2afbd;
+        }
+
+
+        input:hover {
+            border-color: #b9ccdc;
+        }
+
+
+        input:focus {
+            border-color: #2696ca;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(38, 150, 202, 0.10);
+        }
+
+
+        /* =========================
+           BOTÃO
+        ========================= */
+
+        button {
+            width: 100%;
+            height: 54px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2452a4,
+                    #1769aa
+                );
+
+            color: #ffffff;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 18px
+                rgba(36, 82, 164, 0.22);
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s,
+                background 0.2s;
+        }
+
+
+        button:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 12px 24px
+                rgba(36, 82, 164, 0.28);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1c438b,
+                    #125d96
+                );
+        }
+
+
+        button:active {
+            transform:
+                translateY(0);
+        }
+
+
+        /* =========================
+           SEGUNDA ETAPA
+        ========================= */
+
+        #novaSenhaArea {
+            display: none;
+        }
+
+
+        .senha-info {
+            background: #eef8fd;
+
+            border: 1px solid #d5edf9;
+
+            color: #526b80;
+
+            padding: 12px 14px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           MENSAGEM
+        ========================= */
+
+        .mensagem {
+            display: none;
+
+            width: 100%;
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            line-height: 1.4;
+        }
+
+
+        .erro {
+            display: block;
+
+            background: #fff0f0;
+
+            border: 1px solid #ffcaca;
+
+            color: #b42323;
+        }
+
+
+        .sucesso {
+            display: block;
+
+            background: #ecfdf3;
+
+            border: 1px solid #b7ebc9;
+
+            color: #16713a;
+        }
+
+
+        /* =========================
+           VOLTAR
+        ========================= */
+
+        .voltar {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 23px;
+
+            color: #2452a4;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+
+        .voltar:hover {
+            color: #1769aa;
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           RODAPÉ
+        ========================= */
+
+        .rodape {
+            text-align: center;
+
+            padding: 18px;
+
+            color: #8191a3;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           RESPONSIVO
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .pagina {
+                padding: 30px 15px;
+            }
+
+
+            .card-recuperacao {
+                padding: 35px 28px;
+
+                border-radius: 20px;
+            }
+
+
+            .cabecalho h1 {
+                font-size: 27px;
+            }
+
+        }
+
+
+        @media (max-width: 380px) {
+
+            .card-recuperacao {
+                padding: 30px 22px;
+            }
+
+
+            .logo {
+                width: 62px;
+                height: 62px;
+
+                font-size: 23px;
+            }
+
+
+            .cabecalho h1 {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- TOPO -->
+
+    <div class="topo"></div>
+
+
+    <!-- PÁGINA -->
+
+    <main class="pagina">
+
+
+        <!-- CARD -->
+
+        <section class="card-recuperacao">
+
+
+            <!-- LOGO -->
+
+            <div class="logo">
+                PB
+            </div>
+
+
+            <!-- CABEÇALHO -->
+
+            <div class="cabecalho">
+
+                <h1>Recuperar senha</h1>
+
+                <p>
+                    Não se preocupe. Vamos ajudar você
+                    a recuperar o acesso à sua conta.
+                </p>
+
+            </div>
+
+
+            <!-- ETAPA 1 -->
+
+            <div
+                id="emailArea">
+
+
+                <div class="etapa">
+
+                    <div class="numero">
+                        1
+                    </div>
+
+                    <span>
+                        Confirme seu e-mail
+                    </span>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <div class="campo-input">
+
+                        <span class="icone">
+                            ✉
+                        </span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Digite seu e-mail"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    onclick="verificarEmail()">
+
+                    Continuar
+
+                </button>
+
+
+            </div>
+
+
+            <!-- ETAPA 2 -->
+
+            <div
+                id="novaSenhaArea">
+
+
+                <div class="etapa">
+
+                    <div class="numero">
+                        2
+                    </div>
+
+                    <span>
+                        Crie sua nova senha
+                    </span>
+
+                </div>
+
+
+                <div class="senha-info">
+
+                    Digite e confirme sua nova senha
+                    para continuar.
+
+                </div>
+
+
+                <!-- NOVA SENHA -->
+
+                <div class="campo">
+
+                    <label for="novaSenha">
+                        Nova senha
+                    </label>
+
+                    <div class="campo-input">
+
+                        <span class="icone">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            id="novaSenha"
+                            placeholder="Digite sua nova senha"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIRMAR -->
+
+                <div class="campo">
+
+                    <label for="confirmarSenha">
+                        Confirmar senha
+                    </label>
+
+                    <div class="campo-input">
+
+                        <span class="icone">
+                            🔐
+                        </span>
+
+                        <input
+                            type="password"
+                            id="confirmarSenha"
+                            placeholder="Digite novamente"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    onclick="salvarSenha()">
+
+                    Salvar nova senha
+
+                </button>
+
+
+            </div>
+
+
+            <!-- MENSAGEM -->
+
+            <div
+                id="mensagem"
+                class="mensagem">
+            </div>
+
+
+            <!-- VOLTAR -->
+
+            <a
+                href="login.html"
+                class="voltar">
+
+                ← Voltar para o login
+
+            </a>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+
+    <footer class="rodape">
+
+        PBEMA • Acompanhamento Escolar
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        /*
+        =========================================
+        VERIFICAR EMAIL
+        =========================================
+        */
+
+        function verificarEmail() {
+
+            const email =
+                document
+                .getElementById("email")
+                .value
+                .trim();
+
+
+            const mensagem =
+                document
+                .getElementById("mensagem");
+
+
+            const emailCorreto =
+                "lucilenecorrea@gmail.com";
+
+
+            /*
+            VERIFICA O EMAIL
+            */
+
+            if (
+                email === ""
+            ) {
+
+                mensagem.textContent =
+                    "Digite seu e-mail.";
+
+                mensagem.className =
+                    "mensagem erro";
+
+                return;
+
+            }
+
+
+            if (
+                email.toLowerCase() !== emailCorreto
+            ) {
+
+                mensagem.textContent =
+                    "E-mail não encontrado. Verifique o endereço informado.";
+
+                mensagem.className =
+                    "mensagem erro";
+
+                return;
+
+            }
+
+
+            /*
+            EMAIL CORRETO
+            */
+
+            mensagem.className =
+                "mensagem";
+
+
+            document.getElementById(
+                "emailArea"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "novaSenhaArea"
+            ).style.display = "block";
+
+
+            document.getElementById(
+                "novaSenha"
+            ).focus();
+
+        }
+
+
+        /*
+        =========================================
+        SALVAR NOVA SENHA
+        =========================================
+        */
+
+        function salvarSenha() {
+
+            const novaSenha =
+                document
+                .getElementById("novaSenha")
+                .value;
+
+
+            const confirmarSenha =
+                document
+                .getElementById("confirmarSenha")
+                .value;
+
+
+            const mensagem =
+                document
+                .getElementById("mensagem");
+
+
+            /*
+            VERIFICA SE FOI PREENCHIDA
+            */
+
+            if (
+                novaSenha === ""
+            ) {
+
+                mensagem.textContent =
+                    "Digite uma nova senha.";
+
+                mensagem.className =
+                    "mensagem erro";
+
+                return;
+
+            }
+
+
+            /*
+            CONFIRMA A SENHA
+            */
+
+            if (
+                novaSenha !== confirmarSenha
+            ) {
+
+                mensagem.textContent =
+                    "As senhas não são iguais.";
+
+                mensagem.className =
+                    "mensagem erro";
+
+                return;
+
+            }
+
+
+            /*
+            MANTÉM A SENHA DO PROJETO
+            */
+
+            if (
+                novaSenha !== "261285"
+            ) {
+
+                mensagem.textContent =
+                    "Senha inválida. Para esta conta, use a senha cadastrada.";
+
+                mensagem.className =
+                    "mensagem erro";
+
+                return;
+
+            }
+
+
+            /*
+            SALVA O USUÁRIO
+            */
+
+            const usuario = {
+
+                nome:
+                    "Lucilene Correa",
+
+                email:
+                    "lucilenecorrea@gmail.com",
+
+                senha:
+                    "261285",
+
+                id:
+                    "20260025"
+
+            };
+
+
+            localStorage.setItem(
+                "usuarioPBEMA",
+                JSON.stringify(usuario)
+            );
+
+
+            /*
+            MENSAGEM DE SUCESSO
+            */
+
+            mensagem.textContent =
+                "Senha confirmada com sucesso! Voltando para o login...";
+
+
+            mensagem.className =
+                "mensagem sucesso";
+
+
+            /*
+            VOLTA PARA LOGIN
+            */
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "login.html";
+
+            }, 1500);
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

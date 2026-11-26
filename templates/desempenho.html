@@ -1,0 +1,1306 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PBEMA - Desempenho Escolar</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #eef4f8;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+/* CABEÇALHO */
+
+header {
+    background: linear-gradient(120deg, #1597db, #087bd9);
+    color: white;
+    padding: 22px 5%;
+    box-shadow: 0 4px 15px rgba(0,0,0,.12);
+}
+
+.header-conteudo {
+    max-width: 1150px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo h2 {
+    margin: 0;
+    font-size: 25px;
+    letter-spacing: 1px;
+}
+
+.logo p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    opacity: .9;
+}
+
+.usuario-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 43px;
+    height: 43px;
+    background: white;
+    color: #087bd9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.usuario-header p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.usuario-header small {
+    opacity: .9;
+}
+
+/* CONTEÚDO */
+
+.conteudo {
+    width: 92%;
+    max-width: 1100px;
+    margin: -25px auto 70px;
+    position: relative;
+}
+
+.painel {
+    background: white;
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.08);
+}
+
+.topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.topo h2 {
+    color: #214a93;
+    font-size: 27px;
+    margin: 0;
+}
+
+.topo p {
+    color: #777;
+    margin: 7px 0 0;
+    font-size: 13px;
+}
+
+.voltar {
+    background: #214a93;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.voltar:hover {
+    background: #12346e;
+    transform: translateY(-2px);
+}
+
+/* FILTRO */
+
+.filtro-periodo {
+    background: #f4f8ff;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #e1eafa;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.filtro-periodo label {
+    display: block;
+    color: #214a93;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.filtro-periodo select {
+    width: 270px;
+    max-width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd9ec;
+    border-radius: 9px;
+    background: white;
+    color: #214a93;
+    font-weight: bold;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+.filtro-periodo select:focus {
+    border-color: #1597db;
+    box-shadow: 0 0 0 3px rgba(21,151,219,.12);
+}
+
+.periodo-atual {
+    color: #214a93;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* ALUNO */
+
+.info-aluno {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.card-info {
+    background: #f4f8ff;
+    padding: 18px;
+    border-left: 5px solid #18a6e7;
+    border-radius: 12px;
+}
+
+.card-info span {
+    font-size: 12px;
+    color: #777;
+}
+
+.card-info h3 {
+    color: #214a93;
+    margin: 8px 0 0;
+    font-size: 17px;
+}
+
+/* TÍTULOS */
+
+.secao-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 30px 0 18px;
+}
+
+.secao-titulo h3 {
+    color: #214a93;
+    font-size: 18px;
+    margin: 0;
+}
+
+.secao-titulo span {
+    color: #888;
+    font-size: 12px;
+}
+
+/* INDICADORES */
+
+.grid-indicadores {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.indicador {
+    color: white;
+    padding: 22px;
+    border-radius: 15px;
+    transition: .3s;
+}
+
+.indicador:hover {
+    transform: translateY(-4px);
+}
+
+.indicador h2 {
+    margin: 0 0 7px;
+    font-size: 30px;
+}
+
+.indicador p {
+    margin: 0;
+    font-size: 13px;
+}
+
+.indicador small {
+    display: block;
+    margin-top: 10px;
+    opacity: .85;
+}
+
+.azul {
+    background: linear-gradient(135deg,#214a93,#087bd9);
+}
+
+.verde {
+    background: linear-gradient(135deg,#16b65d,#0b9749);
+}
+
+.amarelo {
+    background: linear-gradient(135deg,#f59e0b,#d97706);
+}
+
+.vermelho {
+    background: linear-gradient(135deg,#ef4444,#ce2525);
+}
+
+/* PROGRESSO */
+
+.progresso-container {
+    background: #f8faff;
+    border: 1px solid #e7edf6;
+    padding: 22px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.progresso-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    color: #214a93;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.barra-progresso {
+    width: 100%;
+    height: 13px;
+    background: #e2eaf5;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.barra-preenchida {
+    height: 100%;
+    width: 73%;
+    background: linear-gradient(90deg,#1597db,#16b65d);
+    border-radius: 20px;
+    transition: width .5s;
+}
+
+/* GRÁFICO */
+
+.grafico {
+    background: #f8faff;
+    padding: 22px;
+    border: 1px solid #e7edf6;
+    border-radius: 15px;
+}
+
+.grafico-barras {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+    align-items: end;
+    min-height: 185px;
+}
+
+.coluna-grafico {
+    height: 175px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 8px;
+}
+
+.barra-fundo {
+    height: 125px;
+    width: 100%;
+    max-width: 65px;
+    background: #e6edf6;
+    border-radius: 8px;
+    display: flex;
+    align-items: end;
+    overflow: hidden;
+}
+
+.barra-grafico {
+    width: 100%;
+    background: linear-gradient(180deg,#1aa7e8,#214a93);
+    border-radius: 8px;
+    transition: height .4s;
+}
+
+.coluna-grafico strong {
+    color: #214a93;
+    font-size: 12px;
+}
+
+.coluna-grafico small {
+    color: #777;
+    font-size: 11px;
+}
+
+/* AVALIAÇÃO */
+
+.avaliacoes {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+}
+
+.avaliacao {
+    background: #f8faff;
+    padding: 19px;
+    border-radius: 13px;
+    border: 1px solid #e7edf6;
+}
+
+.avaliacao-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.avaliacao h4 {
+    color: #214a93;
+    margin: 0;
+    font-size: 14px;
+}
+
+.nivel {
+    font-size: 11px;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.nivel-bom {
+    color: #098b43;
+    background: #e4f8ec;
+}
+
+.nivel-medio {
+    color: #bd7900;
+    background: #fff3d9;
+}
+
+.nivel-ruim {
+    color: #d52d2d;
+    background: #ffe9e9;
+}
+
+.avaliacao p {
+    color: #777;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* RELATÓRIO */
+
+.relatorio {
+    background: #f8faff;
+    border: 1px solid #e7edf6;
+    border-radius: 15px;
+    padding: 23px;
+}
+
+.relatorio-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.professor-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #214a93;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.relatorio-cabecalho h4 {
+    color: #214a93;
+    margin: 0 0 4px;
+}
+
+.relatorio-cabecalho small {
+    color: #888;
+}
+
+.relatorio-texto {
+    color: #555;
+    line-height: 1.8;
+    font-size: 13px;
+}
+
+.relatorio-data {
+    border-top: 1px solid #e5eaf1;
+    padding-top: 14px;
+    margin-top: 15px;
+    color: #999;
+    font-size: 11px;
+}
+
+/* PONTOS DE ATENÇÃO */
+
+.lista-pontos {
+    display: grid;
+    gap: 12px;
+}
+
+.ponto {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #f8faff;
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 4px solid #1597db;
+}
+
+.ponto.alerta {
+    border-left-color: #f59e0b;
+}
+
+.ponto.positivo {
+    border-left-color: #16b65d;
+}
+
+.ponto strong {
+    color: #214a93;
+    font-size: 13px;
+}
+
+.ponto p {
+    color: #777;
+    font-size: 12px;
+    margin: 5px 0 0;
+    line-height: 1.5;
+}
+
+/* MENSAGEM */
+
+.mensagem {
+    margin-top: 25px;
+    padding: 18px;
+    background: #eaf5ff;
+    border-left: 5px solid #1597db;
+    border-radius: 12px;
+    color: #214a93;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.mensagem.alerta {
+    background: #fff4e5;
+    border-color: #f59e0b;
+    color: #a16207;
+}
+
+.mensagem.perigo {
+    background: #fff1f1;
+    border-color: #e53935;
+    color: #b52c2c;
+}
+
+/* RODAPÉ */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+    font-size: 12px;
+}
+
+/* RESPONSIVIDADE */
+
+@media(max-width:800px) {
+    .grid-indicadores {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .info-aluno {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:550px) {
+    .conteudo {
+        width: 94%;
+        margin-top: -15px;
+    }
+
+    .painel {
+        padding: 19px;
+    }
+
+    .topo h2 {
+        font-size: 22px;
+    }
+
+    .filtro-periodo > div {
+        width: 100%;
+    }
+
+    .filtro-periodo select {
+        width: 100%;
+    }
+
+    .grid-indicadores {
+        grid-template-columns: 1fr;
+    }
+
+    .avaliacoes {
+        grid-template-columns: 1fr;
+    }
+
+    .grafico-barras {
+        gap: 8px;
+    }
+
+    .grafico {
+        overflow-x: auto;
+    }
+
+    .grafico-barras {
+        min-width: 350px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-conteudo">
+
+        <div class="logo">
+            <h2>PBEMA</h2>
+            <p>Plataforma de Boletim e Monitoramento Escolar</p>
+        </div>
+
+       
+
+    </div>
+</header>
+
+<div class="conteudo">
+
+<main class="painel">
+
+    <div class="topo">
+        <div>
+            <h2>Desempenho Escolar</h2>
+            <p>Relatório completo de desenvolvimento e evolução acadêmica.</p>
+        </div>
+
+        <a href="{{ url_for('pagina_inicio') }}" class="voltar">← Início</a>
+    </div>
+
+    <!-- FILTRO DE PERÍODO -->
+
+    <div class="filtro-periodo">
+
+        <div>
+            <label for="periodoSelecionado">CONSULTAR DESEMPENHO POR PERÍODO</label>
+
+            <select id="periodoSelecionado">
+                <option value="anual">Desempenho anual - 2026</option>
+                <option value="0">1º Bimestre</option>
+                <option value="1">2º Bimestre</option>
+                <option value="2">3º Bimestre</option>
+                <option value="3">4º Bimestre</option>
+            </select>
+        </div>
+
+        <div class="periodo-atual" id="periodoAtual">
+            RELATÓRIO ANUAL
+        </div>
+
+    </div>
+
+    <!-- IDENTIFICAÇÃO -->
+
+    <div class="info-aluno">
+
+        <div class="card-info">
+            <span>ALUNO</span>
+            <h3>João Correa</h3>
+        </div>
+
+        <div class="card-info">
+            <span>TURMA</span>
+            <h3>1º Ano A</h3>
+        </div>
+
+        <div class="card-info">
+            <span>ANO LETIVO</span>
+            <h3>2026</h3>
+        </div>
+
+    </div>
+
+    <!-- INDICADORES -->
+
+    <div class="secao-titulo">
+        <h3>Indicadores de desempenho</h3>
+        <span id="periodoResumo">Ano letivo de 2026</span>
+    </div>
+
+    <div class="grid-indicadores">
+
+        <div class="indicador azul">
+            <h2 id="mediaGeral">7,3</h2>
+            <p>Média acadêmica</p>
+            <small>Resultado das disciplinas</small>
+        </div>
+
+        <div class="indicador verde">
+            <h2 id="frequencia">75%</h2>
+            <p>Frequência escolar</p>
+            <small>Presença nas aulas</small>
+        </div>
+
+        <div class="indicador amarelo">
+            <h2 id="comportamento">Bom</h2>
+            <p>Comportamento</p>
+            <small>Avaliação pedagógica</small>
+        </div>
+
+        <div class="indicador vermelho">
+            <h2 id="pontosAtencao">2</h2>
+            <p>Pontos de atenção</p>
+            <small>Aspectos a desenvolver</small>
+        </div>
+
+    </div>
+
+    <!-- PROGRESSO -->
+
+    <div class="secao-titulo">
+        <h3>Progresso acadêmico</h3>
+        <span>Meta de referência: média 7,0</span>
+    </div>
+
+    <div class="progresso-container">
+
+        <div class="progresso-topo">
+            <span>Desempenho em relação à escala de 10 pontos</span>
+            <span id="valorProgresso">73%</span>
+        </div>
+
+        <div class="barra-progresso">
+            <div class="barra-preenchida" id="barraProgresso"></div>
+        </div>
+
+    </div>
+
+    <!-- GRÁFICO -->
+
+    <div class="secao-titulo">
+        <h3>Evolução durante o ano</h3>
+        <span>Média por bimestre</span>
+    </div>
+
+    <div class="grafico">
+
+        <div class="grafico-barras" id="graficoDesempenho"></div>
+
+    </div>
+
+    <!-- AVALIAÇÃO PEDAGÓGICA -->
+
+    <div class="secao-titulo">
+        <h3>Avaliação pedagógica</h3>
+        <span>Acompanhamento do desenvolvimento</span>
+    </div>
+
+    <div class="avaliacoes" id="avaliacoes">
+
+    </div>
+
+    <!-- RELATÓRIO DO PROFESSOR -->
+
+    <div class="secao-titulo">
+        <h3>Relatório do professor</h3>
+        <span>Observações pedagógicas</span>
+    </div>
+
+    <div class="relatorio">
+
+        <div class="relatorio-cabecalho">
+
+            <div class="professor-avatar">P</div>
+
+            <div>
+                <h4>Equipe Pedagógica</h4>
+                <small>Relatório de acompanhamento escolar</small>
+            </div>
+
+        </div>
+
+        <div class="relatorio-texto" id="textoRelatorio">
+            João Correa apresenta boa participação nas atividades escolares,
+            demonstra responsabilidade com as tarefas e mantém um bom
+            relacionamento com os colegas. É importante continuar
+            desenvolvendo os conhecimentos em Física e fortalecer a rotina
+            de estudos para alcançar resultados ainda melhores.
+        </div>
+
+        <div class="relatorio-data" id="dataRelatorio">
+            Relatório referente ao ano letivo de 2026.
+        </div>
+
+    </div>
+
+    <!-- PONTOS DE ATENÇÃO -->
+
+    <div class="secao-titulo">
+        <h3>Pontos fortes e melhorias</h3>
+        <span>Orientações para evolução</span>
+    </div>
+
+    <div class="lista-pontos" id="listaPontos"></div>
+
+    <!-- MENSAGEM FINAL -->
+
+    <div class="mensagem" id="mensagemFinal">
+        Acompanhe sua evolução escolar e continue se dedicando aos estudos.
+    </div>
+
+</main>
+
+</div>
+
+<footer>
+    © 2026 PBEMA - Sistema de Acompanhamento Escolar.
+    <br>Todos os direitos reservados.
+</footer>
+
+<script>
+
+// CONFIGURAÇÕES
+
+const MEDIA_META = 7;
+
+const seletor = document.getElementById("periodoSelecionado");
+
+// DADOS ACADÊMICOS DEMONSTRATIVOS
+// Cada posição representa um bimestre.
+
+const dadosDesempenho = [
+    {
+        media: 7.1,
+        frequencia: 82,
+        comportamento: "Bom",
+        pontosAtencao: 2,
+        avaliacoes: [
+            {
+                titulo: "Participação nas aulas",
+                nivel: "Excelente",
+                classe: "nivel-bom",
+                descricao: "Participa das atividades e demonstra interesse pelos conteúdos."
+            },
+            {
+                titulo: "Responsabilidade",
+                nivel: "Bom",
+                classe: "nivel-bom",
+                descricao: "Apresenta compromisso com as atividades escolares."
+            },
+            {
+                titulo: "Relacionamento",
+                nivel: "Bom",
+                classe: "nivel-bom",
+                descricao: "Mantém uma convivência respeitosa com colegas e professores."
+            },
+            {
+                titulo: "Desempenho acadêmico",
+                nivel: "Regular",
+                classe: "nivel-medio",
+                descricao: "Precisa reforçar os conhecimentos em algumas disciplinas."
+            }
+        ],
+        relatorio: "João Correa demonstra interesse pelas aulas e boa convivência escolar. Recomenda-se fortalecer a organização dos estudos e a resolução de atividades para melhorar o desempenho acadêmico.",
+        pontos: [
+            {
+                tipo: "positivo",
+                titulo: "Participação",
+                descricao: "Demonstra interesse e participa das atividades propostas."
+            },
+            {
+                tipo: "positivo",
+                titulo: "Relacionamento",
+                descricao: "Mantém um bom relacionamento com colegas e professores."
+            },
+            {
+                tipo: "alerta",
+                titulo: "Organização dos estudos",
+                descricao: "Precisa organizar melhor os horários de estudo e revisão."
+            },
+            {
+                tipo: "alerta",
+                titulo: "Frequência",
+                descricao: "É importante manter uma presença regular nas aulas."
+            }
+        ]
+    },
+
+    {
+        media: 7.3,
+        frequencia: 75,
+        comportamento: "Bom",
+        pontosAtencao: 2,
+        avaliacoes: [
+            {
+                titulo: "Participação nas aulas",
+                nivel: "Excelente",
+                classe: "nivel-bom",
+                descricao: "Participa das atividades e demonstra interesse pelos conteúdos."
+            },
+            {
+                titulo: "Responsabilidade",
+                nivel: "Bom",
+                classe: "nivel-bom",
+                descricao: "Entrega atividades e procura cumprir suas obrigações."
+            },
+            {
+                titulo: "Relacionamento",
+                nivel: "Bom",
+                classe: "nivel-bom",
+                descricao: "Apresenta convivência positiva no ambiente escolar."
+            },
+            {
+                titulo: "Desempenho acadêmico",
+                nivel: "Regular",
+                classe: "nivel-medio",
+                descricao: "Necessita reforçar os estudos em Física e História."
+            }
+        ],
+        relatorio: "João Correa apresenta boa participação nas atividades escolares, demonstra responsabilidade com as tarefas e mantém um bom relacionamento com os colegas. É importante continuar desenvolvendo os conhecimentos em Física e fortalecer a rotina de estudos.",
+        pontos: [
+            {
+                tipo: "positivo",
+                titulo: "Participação",
+                descricao: "Apresenta boa participação nas aulas e atividades."
+            },
+            {
+                tipo: "positivo",
+                titulo: "Responsabilidade",
+                descricao: "Demonstra comprometimento com as atividades escolares."
+            },
+            {
+                tipo: "alerta",
+                titulo: "Física",
+                descricao: "Precisa reforçar os conteúdos e praticar exercícios da disciplina."
+            },
+            {
+                tipo: "alerta",
+                titulo: "Frequência escolar",
+                descricao: "Acompanhar as ausências e evitar novas faltas."
+            }
+        ]
+    },
+
+    {
+        media: 7.5,
+        frequencia: 88,
+        comportamento: "Excelente",
+        pontosAtencao: 1,
+        avaliacoes: [
+            {
+                titulo: "Participação nas aulas",
+                nivel: "Excelente",
+                classe: "nivel-bom",
+                descricao: "Apresenta participação ativa e interesse pelos conteúdos."
+            },
+            {
+                titulo: "Responsabilidade",
+                nivel: "Excelente",
+                classe: "nivel-bom",
+                descricao: "Demonstra maior organização e comprometimento."
+            },
+            {
+                titulo: "Relacionamento",
+                nivel: "Bom",
+                classe: "nivel-bom",
+                descricao: "Mantém uma boa convivência no ambiente escolar."
+            },
+            {
+                titulo: "Desempenho acadêmico",
+                nivel: "Bom",
+                classe: "nivel-bom",
+                descricao: "Apresenta evolução nos resultados acadêmicos."
+            }
+        ],
+        relatorio: "O estudante demonstra evolução no rendimento escolar, maior organização e participação nas aulas. Os resultados indicam desenvolvimento positivo em relação aos períodos anteriores.",
+        pontos: [
+            {
+                tipo: "positivo",
+                titulo: "Evolução acadêmica",
+                descricao: "Apresenta melhora no rendimento das disciplinas."
+            },
+            {
+                tipo: "positivo",
+                titulo: "Responsabilidade",
+                descricao: "Demonstra maior organização com as atividades."
+            },
+            {
+                tipo: "alerta",
+                titulo: "Frequência",
+                descricao: "Continuar acompanhando a frequência escolar."
+            }
+        ]
+    },
+
+    {
+        media: 8.0,
+        frequencia: 93,
+        comportamento: "Excelente",
+        pontosAtencao: 0,
+        avaliacoes: [
+            {
+                titulo: "Participação nas aulas",
+                nivel: "Excelente",
+                classe: "nivel-bom",
+                descricao: "Participa ativamente e contribui com as atividades."
+            },
+            {
+                titulo: "Responsabilidade",
+                nivel: "Excelente",
+                classe: "nivel-bom",
+                descricao: "Apresenta organização e comprometimento."
+            },
+            {
+                titulo: "Relacionamento",
+                nivel: "Excelente",
+                classe: "nivel-bom",
+                descricao: "Mantém convivência respeitosa e colaborativa."
+            },
+            {
+                titulo: "Desempenho acadêmico",
+                nivel: "Excelente",
+                classe: "nivel-bom",
+                descricao: "Apresenta ótimo rendimento e evolução nas disciplinas."
+            }
+        ],
+        relatorio: "O estudante apresenta excelente evolução acadêmica, participação ativa e comprometimento com as atividades escolares. Demonstra responsabilidade e bom relacionamento com a comunidade escolar.",
+        pontos: [
+            {
+                tipo: "positivo",
+                titulo: "Desempenho acadêmico",
+                descricao: "Alcançou bons resultados nas disciplinas."
+            },
+            {
+                tipo: "positivo",
+                titulo: "Participação",
+                descricao: "Demonstra interesse e participação constante."
+            },
+            {
+                tipo: "positivo",
+                titulo: "Responsabilidade",
+                descricao: "Mantém uma postura responsável e organizada."
+            }
+        ]
+    }
+];
+
+// ELEMENTOS
+
+const mediaGeral = document.getElementById("mediaGeral");
+const frequencia = document.getElementById("frequencia");
+const comportamento = document.getElementById("comportamento");
+const pontosAtencao = document.getElementById("pontosAtencao");
+
+// NOMES DOS PERÍODOS
+
+const periodos = [
+    "1º Bimestre",
+    "2º Bimestre",
+    "3º Bimestre",
+    "4º Bimestre"
+];
+
+// ATUALIZA A PÁGINA
+
+function atualizarDesempenho() {
+
+    const periodo = seletor.value;
+
+    let dados;
+
+    if (periodo === "anual") {
+
+        // Média dos períodos disponíveis
+        const media = dadosDesempenho.reduce(
+            (soma, item) => soma + item.media, 0
+        ) / dadosDesempenho.length;
+
+        const freq = dadosDesempenho.reduce(
+            (soma, item) => soma + item.frequencia, 0
+        ) / dadosDesempenho.length;
+
+        dados = {
+            media: media,
+            frequencia: freq,
+            comportamento: "Bom",
+            pontosAtencao: dadosDesempenho[1].pontosAtencao,
+            avaliacoes: dadosDesempenho[1].avaliacoes,
+            relatorio: "João Correa apresenta evolução no decorrer do ano letivo. Demonstra participação nas atividades escolares, responsabilidade e bom relacionamento com os colegas. Recomenda-se continuar fortalecendo a rotina de estudos e manter uma frequência regular.",
+            pontos: [
+                {
+                    tipo: "positivo",
+                    titulo: "Participação escolar",
+                    descricao: "Demonstra interesse e participação nas atividades."
+                },
+                {
+                    tipo: "positivo",
+                    titulo: "Evolução acadêmica",
+                    descricao: "Apresenta desenvolvimento positivo ao longo dos períodos."
+                },
+                {
+                    tipo: "alerta",
+                    titulo: "Frequência",
+                    descricao: "É importante manter a presença regular nas aulas."
+                },
+                {
+                    tipo: "alerta",
+                    titulo: "Disciplinas",
+                    descricao: "Continuar reforçando os conteúdos que apresentam maior dificuldade."
+                }
+            ]
+        };
+
+        document.getElementById("periodoAtual").textContent =
+            "RELATÓRIO ANUAL";
+
+        document.getElementById("periodoResumo").textContent =
+            "Ano letivo de 2026";
+
+    } else {
+
+        dados = dadosDesempenho[Number(periodo)];
+
+        document.getElementById("periodoAtual").textContent =
+            "RELATÓRIO DO " + periodos[Number(periodo)].toUpperCase();
+
+        document.getElementById("periodoResumo").textContent =
+            periodos[Number(periodo)] + " de 2026";
+
+    }
+
+    // INDICADORES
+
+    mediaGeral.textContent = dados.media.toFixed(1).replace(".", ",");
+
+    frequencia.textContent =
+        Math.round(dados.frequencia) + "%";
+
+    comportamento.textContent = dados.comportamento;
+
+    pontosAtencao.textContent = dados.pontosAtencao;
+
+    // BARRA DE PROGRESSO
+
+    const progresso = Math.min(100, Math.max(0, dados.media * 10));
+
+    document.getElementById("valorProgresso").textContent =
+        Math.round(progresso) + "%";
+
+    document.getElementById("barraProgresso").style.width =
+        progresso + "%";
+
+    // AVALIAÇÕES
+
+    const avaliacoes = document.getElementById("avaliacoes");
+
+    avaliacoes.innerHTML = "";
+
+    dados.avaliacoes.forEach(item => {
+
+        const card = document.createElement("div");
+
+        card.className = "avaliacao";
+
+        card.innerHTML = `
+            <div class="avaliacao-topo">
+                <h4>${item.titulo}</h4>
+                <span class="nivel ${item.classe}">
+                    ${item.nivel}
+                </span>
+            </div>
+
+            <p>${item.descricao}</p>
+        `;
+
+        avaliacoes.appendChild(card);
+
+    });
+
+    // RELATÓRIO
+
+    document.getElementById("textoRelatorio").textContent =
+        dados.relatorio;
+
+    document.getElementById("dataRelatorio").textContent =
+        "Relatório referente a " +
+        (periodo === "anual" ? "todo o ano letivo de 2026." : periodos[Number(periodo)] + " de 2026.");
+
+    // PONTOS FORTES E MELHORIAS
+
+    const lista = document.getElementById("listaPontos");
+
+    lista.innerHTML = "";
+
+    dados.pontos.forEach(item => {
+
+        const elemento = document.createElement("div");
+
+        elemento.className = "ponto " + item.tipo;
+
+        elemento.innerHTML = `
+            <div>
+                <strong>${item.titulo}</strong>
+                <p>${item.descricao}</p>
+            </div>
+        `;
+
+        lista.appendChild(elemento);
+
+    });
+
+    // MENSAGEM FINAL
+
+    const mensagem = document.getElementById("mensagemFinal");
+
+    if (dados.media >= 8 && dados.frequencia >= 90) {
+
+        mensagem.className = "mensagem";
+
+        mensagem.innerHTML = `
+            <strong>Excelente desempenho!</strong>
+            João Correa apresenta bons resultados acadêmicos e uma ótima frequência.
+            Continue mantendo essa dedicação!
+        `;
+
+    } else if (dados.frequencia < 75) {
+
+        mensagem.className = "mensagem perigo";
+
+        mensagem.innerHTML = `
+            <strong>Atenção à frequência escolar!</strong>
+            O percentual de presença está abaixo da referência de 75%.
+            É importante acompanhar as ausências e buscar orientação da escola.
+        `;
+
+    } else if (dados.media < MEDIA_META) {
+
+        mensagem.className = "mensagem alerta";
+
+        mensagem.innerHTML = `
+            <strong>Oportunidade de melhoria!</strong>
+            O rendimento acadêmico está abaixo da meta de 7,0.
+            Reforce os estudos e procure orientação dos professores.
+        `;
+
+    } else {
+
+        mensagem.className = "mensagem";
+
+        mensagem.innerHTML = `
+            <strong>Bom desenvolvimento!</strong>
+            O desempenho escolar está dentro de uma boa faixa.
+            Continue acompanhando sua evolução!
+        `;
+
+    }
+
+    atualizarGrafico();
+
+}
+
+// GRÁFICO DE EVOLUÇÃO
+
+function atualizarGrafico() {
+
+    const grafico = document.getElementById("graficoDesempenho");
+
+    grafico.innerHTML = "";
+
+    dadosDesempenho.forEach((item, indice) => {
+
+        const percentual = item.media * 10;
+
+        const coluna = document.createElement("div");
+
+        coluna.className = "coluna-grafico";
+
+        coluna.innerHTML = `
+            <strong>${item.media.toFixed(1).replace(".", ",")}</strong>
+
+            <div class="barra-fundo">
+                <div class="barra-grafico"
+                     style="height:${percentual}%">
+                </div>
+            </div>
+
+            <small>${indice + 1}º Bimestre</small>
+        `;
+
+        grafico.appendChild(coluna);
+
+    });
+
+}
+
+// EVENTO DO SELETOR
+
+seletor.addEventListener("change", atualizarDesempenho);
+
+// INICIALIZAÇÃO
+
+atualizarDesempenho();
+
+</script>
+
+</body>
+</html>
+```

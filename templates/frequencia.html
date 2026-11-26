@@ -1,0 +1,901 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PBEMA - Frequência Escolar</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #eef4f8;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+/* CABEÇALHO */
+
+header {
+    background: linear-gradient(120deg, #1597db, #087bd9);
+    color: white;
+    padding: 22px 5%;
+    box-shadow: 0 4px 15px rgba(0,0,0,.12);
+}
+
+.header-conteudo {
+    max-width: 1150px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo h2 {
+    margin: 0;
+    font-size: 25px;
+    letter-spacing: 1px;
+}
+
+.logo p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    opacity: .9;
+}
+
+.usuario-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 43px;
+    height: 43px;
+    background: white;
+    color: #087bd9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.usuario-header p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.usuario-header small {
+    opacity: .9;
+}
+
+/* CONTEÚDO */
+
+.conteudo {
+    width: 92%;
+    max-width: 1100px;
+    margin: -25px auto 70px;
+    position: relative;
+}
+
+.painel {
+    background: white;
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.08);
+}
+
+.titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.titulo h2 {
+    color: #214a93;
+    margin: 0;
+    font-size: 25px;
+}
+
+.titulo p {
+    color: #777;
+    margin: 7px 0 0;
+    font-size: 13px;
+}
+
+.voltar {
+    background: #214a93;
+    color: white;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.voltar:hover {
+    background: #12346e;
+    transform: translateY(-2px);
+}
+
+/* FILTRO DE MÊS */
+
+.filtro-mes {
+    background: #f4f8ff;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #e1eafa;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.filtro-mes label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    color: #214a93;
+    margin-bottom: 8px;
+}
+
+.filtro-mes select {
+    width: 230px;
+    max-width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd9ec;
+    border-radius: 9px;
+    background: white;
+    color: #214a93;
+    font-size: 14px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+}
+
+.filtro-mes select:focus {
+    border-color: #1597db;
+    box-shadow: 0 0 0 3px rgba(21,151,219,.12);
+}
+
+.mes-atual {
+    color: #214a93;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* INFORMAÇÕES DO ALUNO */
+
+.info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.card-info {
+    background: #f4f8ff;
+    border-left: 5px solid #1aa7e8;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+.card-info span {
+    color: #777;
+    font-size: 12px;
+}
+
+.card-info h3 {
+    color: #214a93;
+    margin: 8px 0 0;
+    font-size: 17px;
+}
+
+/* INDICADORES */
+
+.resumo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.box {
+    padding: 23px;
+    border-radius: 15px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.box:hover {
+    transform: translateY(-4px);
+}
+
+.box h2 {
+    font-size: 30px;
+    margin: 0 0 5px;
+}
+
+.box p {
+    margin: 0;
+    font-size: 13px;
+    opacity: .95;
+}
+
+.box small {
+    display: block;
+    margin-top: 12px;
+    opacity: .85;
+}
+
+.verde {
+    background: linear-gradient(135deg, #16b65d, #0b9749);
+}
+
+.vermelho {
+    background: linear-gradient(135deg, #ef4444, #ce2525);
+}
+
+.azul {
+    background: linear-gradient(135deg, #214a93, #087bd9);
+}
+
+/* SEÇÕES */
+
+.secao-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 30px 0 18px;
+}
+
+.secao-titulo h3 {
+    color: #214a93;
+    margin: 0;
+    font-size: 18px;
+}
+
+.secao-titulo span {
+    color: #888;
+    font-size: 12px;
+}
+
+/* TABELA */
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #e8edf4;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 550px;
+}
+
+th {
+    background: #214a93;
+    color: white;
+    padding: 15px 12px;
+    font-size: 13px;
+    text-align: center;
+}
+
+td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    font-size: 13px;
+}
+
+tbody tr:hover {
+    background: #f4f8ff;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.presente {
+    color: #09a84f;
+    font-weight: bold;
+}
+
+.falta {
+    color: #e53935;
+    font-weight: bold;
+}
+
+.sem-registro {
+    color: #999;
+    font-weight: bold;
+}
+
+.status {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+.status-presente {
+    background: #e4f8ec;
+    color: #098b43;
+}
+
+.status-falta {
+    background: #ffe9e9;
+    color: #d52d2d;
+}
+
+.status-sem {
+    background: #f0f1f3;
+    color: #777;
+}
+
+/* GRÁFICO ANUAL */
+
+.grafico {
+    background: #f8faff;
+    padding: 22px;
+    border-radius: 15px;
+    border: 1px solid #e7edf6;
+}
+
+.grafico-legenda {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #666;
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.cor-legenda {
+    width: 11px;
+    height: 11px;
+    border-radius: 3px;
+    background: #16b65d;
+}
+
+.grafico-barras {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 10px;
+    align-items: end;
+    min-height: 185px;
+}
+
+.coluna-grafico {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    height: 180px;
+    gap: 8px;
+    min-width: 0;
+}
+
+.barra-fundo {
+    width: 100%;
+    max-width: 36px;
+    height: 130px;
+    background: #e6edf6;
+    border-radius: 7px;
+    display: flex;
+    align-items: end;
+    overflow: hidden;
+}
+
+.barra {
+    width: 100%;
+    background: linear-gradient(180deg, #1aa7e8, #214a93);
+    border-radius: 7px;
+    transition: height .4s;
+    min-height: 0;
+}
+
+.coluna-grafico strong {
+    font-size: 10px;
+    color: #214a93;
+}
+
+.coluna-grafico small {
+    font-size: 10px;
+    color: #777;
+}
+
+/* MENSAGEM */
+
+.mensagem {
+    margin-top: 25px;
+    padding: 17px;
+    border-radius: 12px;
+    background: #eaf5ff;
+    border-left: 5px solid #1597db;
+    color: #214a93;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.mensagem.alerta {
+    background: #fff1f1;
+    border-color: #e53935;
+    color: #b52c2c;
+}
+
+/* RODAPÉ */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+    font-size: 12px;
+}
+
+/* RESPONSIVIDADE */
+
+@media(max-width: 700px) {
+    .conteudo {
+        width: 94%;
+        margin-top: -15px;
+    }
+
+    .painel {
+        padding: 19px;
+    }
+
+    .info {
+        grid-template-columns: 1fr;
+    }
+
+    .resumo {
+        grid-template-columns: 1fr;
+    }
+
+    .titulo h2 {
+        font-size: 21px;
+    }
+
+    .filtro-mes {
+        align-items: stretch;
+    }
+
+    .filtro-mes select {
+        width: 100%;
+    }
+
+    .filtro-mes > div {
+        width: 100%;
+    }
+
+    .grafico {
+        overflow-x: auto;
+    }
+
+    .grafico-barras {
+        min-width: 540px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-conteudo">
+
+        <div class="logo">
+            <h2>PBEMA</h2>
+            <p>Plataforma de Boletim e Monitoramento Escolar</p>
+        </div>
+
+        <div class="usuario-header">
+           
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<div class="conteudo">
+
+    <main class="painel">
+
+        <div class="titulo">
+            <div>
+                <h2>Frequência Escolar</h2>
+                <p>Acompanhe sua presença e seu histórico de frequência.</p>
+            </div>
+
+            <a href="{{ url_for('pagina_inicio') }}" class="voltar">← Início</a>
+        </div>
+
+        <!-- SELETOR DE MÊS -->
+
+        <div class="filtro-mes">
+
+            <div>
+                <label for="mesSelecionado">CONSULTAR FREQUÊNCIA POR MÊS</label>
+
+                <select id="mesSelecionado">
+                    <option value="0">Janeiro 2026</option>
+                    <option value="1">Fevereiro 2026</option>
+                    <option value="2">Março 2026</option>
+                    <option value="3">Abril 2026</option>
+                    <option value="4">Maio 2026</option>
+                    <option value="5">Junho 2026</option>
+                    <option value="6">Julho 2026</option>
+                    <option value="7">Agosto 2026</option>
+                    <option value="8" selected>Setembro 2026</option>
+                    <option value="9">Outubro 2026</option>
+                    <option value="10">Novembro 2026</option>
+                    <option value="11">Dezembro 2026</option>
+                </select>
+            </div>
+
+            <div class="mes-atual" id="mesExibido">
+                HISTÓRICO DE SETEMBRO
+            </div>
+
+        </div>
+
+        <!-- DADOS DO ALUNO -->
+
+        <div class="info">
+
+            <div class="card-info">
+                <span>ALUNO</span>
+                <h3>João Correa</h3>
+            </div>
+
+            <div class="card-info">
+                <span>TURMA</span>
+                <h3>1º Ano A</h3>
+            </div>
+
+            <div class="card-info">
+                <span>ANO LETIVO</span>
+                <h3>2026</h3>
+            </div>
+
+        </div>
+
+        <!-- RESUMO AUTOMÁTICO -->
+
+        <div class="secao-titulo">
+            <h3>Resumo da frequência</h3>
+            <span id="periodoResumo">Setembro de 2026</span>
+        </div>
+
+        <div class="resumo">
+
+            <div class="box verde">
+                <h2 id="totalPresencas">6</h2>
+                <p>Presenças registradas</p>
+                <small>Participação nas aulas</small>
+            </div>
+
+            <div class="box vermelho">
+                <h2 id="totalFaltas">2</h2>
+                <p>Faltas registradas</p>
+                <small>Ausências no período</small>
+            </div>
+
+            <div class="box azul">
+                <h2 id="percentual">75%</h2>
+                <p>Frequência mensal</p>
+                <small>Percentual de presença</small>
+            </div>
+
+        </div>
+
+        <!-- TABELA -->
+
+        <div class="secao-titulo">
+            <h3>Registro de aulas</h3>
+            <span id="totalRegistros">8 registros encontrados</span>
+        </div>
+
+        <div class="tabela-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Dia da semana</th>
+                        <th>Disciplina</th>
+                        <th>Situação</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelaFrequencia">
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- GRÁFICO ANUAL -->
+
+        <div class="secao-titulo">
+            <h3>Desempenho durante o ano</h3>
+            <span>Visão geral mensal</span>
+        </div>
+
+        <div class="grafico">
+
+            <div class="grafico-legenda">
+                <div class="legenda-item">
+                    <div class="cor-legenda"></div>
+                    <span>Percentual de presença</span>
+                </div>
+            </div>
+
+            <div class="grafico-barras" id="graficoAnual">
+            </div>
+
+        </div>
+
+        <!-- MENSAGEM AUTOMÁTICA -->
+
+        <div class="mensagem" id="mensagemFrequencia">
+            Sua frequência está sendo acompanhada pelo PBEMA.
+        </div>
+
+    </main>
+
+</div>
+
+<footer>
+    © 2026 PBEMA - Sistema de Acompanhamento Escolar.
+    <br>Todos os direitos reservados.
+</footer>
+
+<script>
+
+// MESES DO ANO
+
+const meses = [
+    "Janeiro", "Fevereiro", "Março", "Abril",
+    "Maio", "Junho", "Julho", "Agosto",
+    "Setembro", "Outubro", "Novembro", "Dezembro"
+];
+
+// DISCIPLINAS
+
+const disciplinas = [
+    "Matemática",
+    "Português",
+    "História",
+    "Geografia",
+    "Biologia",
+    "Química",
+    "Física",
+    "Educação Física"
+];
+
+// DADOS DEMONSTRATIVOS DE FREQUÊNCIA
+// Cada posição representa um mês de janeiro a dezembro.
+// P = Presente | F = Falta
+
+const dadosMensais = [
+    ["P","P","P","F","P","P","P","P"],
+    ["P","P","F","P","P","P","P","P"],
+    ["P","P","P","P","F","P","P","P"],
+    ["P","F","P","P","P","P","P","P"],
+    ["P","P","P","P","P","F","P","P"],
+    ["P","P","P","F","P","P","P","P"],
+    ["P","P","P","P","P","P","F","P"],
+    ["P","F","P","P","P","P","P","P"],
+    ["P","P","P","F","P","F","P","P"],
+    ["P","P","P","P","P","P","P","P"],
+    ["P","P","F","P","P","P","P","P"],
+    ["P","P","P","P","P","P","P","P"]
+];
+
+// ELEMENTOS DA PÁGINA
+
+const seletor = document.getElementById("mesSelecionado");
+const tabela = document.getElementById("tabelaFrequencia");
+
+// FORMATA DATA E DIA DA SEMANA
+
+function obterDiaSemana(dia, mes) {
+
+    const data = new Date(2026, mes, dia);
+    
+    return data.toLocaleDateString("pt-BR", {
+        weekday: "long"
+    });
+}
+
+// ATUALIZA A FREQUÊNCIA
+
+function atualizarFrequencia() {
+
+    const mes = Number(seletor.value);
+    const registros = dadosMensais[mes];
+
+    let presencas = 0;
+    let faltas = 0;
+
+    tabela.innerHTML = "";
+
+    registros.forEach((situacao, indice) => {
+
+        const dia = indice + 1;
+        const disciplina = disciplinas[indice];
+
+        let classe = "";
+        let texto = "";
+        let classeStatus = "";
+
+        if (situacao === "P") {
+
+            presencas++;
+
+            classe = "presente";
+            texto = "Presente";
+            classeStatus = "status-presente";
+
+        } else if (situacao === "F") {
+
+            faltas++;
+
+            classe = "falta";
+            texto = "Falta";
+            classeStatus = "status-falta";
+
+        }
+
+        const linha = document.createElement("tr");
+
+        linha.innerHTML = `
+            <td>${String(dia).padStart(2, "0")}/${String(mes + 1).padStart(2, "0")}/2026</td>
+            <td>${obterDiaSemana(dia, mes)}</td>
+            <td>${disciplina}</td>
+            <td>
+                <span class="status ${classeStatus} ${classe}">
+                    ${texto}
+                </span>
+            </td>
+        `;
+
+        tabela.appendChild(linha);
+
+    });
+
+    const total = presencas + faltas;
+
+    const percentual = total > 0
+        ? Math.round((presencas / total) * 100)
+        : 0;
+
+    // ATUALIZA INDICADORES
+
+    document.getElementById("totalPresencas").textContent = presencas;
+
+    document.getElementById("totalFaltas").textContent = faltas;
+
+    document.getElementById("percentual").textContent = percentual + "%";
+
+    document.getElementById("periodoResumo").textContent =
+        meses[mes] + " de 2026";
+
+    document.getElementById("mesExibido").textContent =
+        "HISTÓRICO DE " + meses[mes].toUpperCase();
+
+    document.getElementById("totalRegistros").textContent =
+        total + " registros encontrados";
+
+    // MENSAGEM DE FREQUÊNCIA
+
+    const mensagem = document.getElementById("mensagemFrequencia");
+
+    if (percentual >= 90) {
+
+        mensagem.className = "mensagem";
+
+        mensagem.innerHTML =
+            "<strong>Excelente desempenho!</strong> Sua frequência está muito boa. Continue mantendo essa participação nas aulas.";
+
+    } else if (percentual >= 75) {
+
+        mensagem.className = "mensagem";
+
+        mensagem.innerHTML =
+            "<strong>Atenção!</strong> Sua frequência merece acompanhamento. Continue comparecendo às aulas para manter um bom desempenho escolar.";
+
+    } else {
+
+        mensagem.className = "mensagem alerta";
+
+        mensagem.innerHTML =
+            "<strong>Alerta de frequência!</strong> O percentual de presença está baixo. Converse com a escola para acompanhar sua situação escolar.";
+
+    }
+
+    atualizarGrafico();
+
+}
+
+// GRÁFICO DOS 12 MESES
+
+function atualizarGrafico() {
+
+    const grafico = document.getElementById("graficoAnual");
+
+    grafico.innerHTML = "";
+
+    dadosMensais.forEach((registros, indice) => {
+
+        const presencas = registros.filter(item => item === "P").length;
+
+        const total = registros.length;
+
+        const percentual = total > 0
+            ? Math.round((presencas / total) * 100)
+            : 0;
+
+        const coluna = document.createElement("div");
+
+        coluna.className = "coluna-grafico";
+
+        coluna.innerHTML = `
+            <strong>${percentual}%</strong>
+
+            <div class="barra-fundo">
+                <div class="barra" style="height:${percentual}%"></div>
+            </div>
+
+            <small>${meses[indice].substring(0,3)}</small>
+        `;
+
+        grafico.appendChild(coluna);
+
+    });
+
+}
+
+// EVENTO DE MUDANÇA DE MÊS
+
+seletor.addEventListener("change", atualizarFrequencia);
+
+// INICIALIZA A PÁGINA
+
+atualizarFrequencia();
+
+</script>
+
+</body>
+</html>
+```
