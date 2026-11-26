@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quebra-cabeça Divertido | Saradag-ui</title>
+
+    <!-- FONTES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CANVAS CONFETTI PARA EFEITO DE VITÓRIA -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* =========================================================
+           SARADAG-UI - QUEBRA-CABEÇA DIVERTIDO (PÁGINA INDIVIDUAL)
+           ========================================================= */
+
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #b9e2ff 0%, #e0f3ff 48%, #b9e2ff 100%);
+            color: #293778;
+            font-family: "Nunito", sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* DECORAÇÕES DE FUNDO */
+        .decoracao {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
+        }
+
+        .estrela {
+            color: #ffc83d;
+            font-size: 35px;
+            text-shadow: 2px 2px 0 #12285e;
+            animation: pulseStar 3s infinite alternate ease-in-out;
+        }
+
+        .estrela-1 { top: 175px; left: 35px; }
+        .estrela-2 { top: 420px; right: 45px; font-size: 29px; }
+        .estrela-3 { bottom: 100px; left: 45px; }
+
+        .coracao {
+            color: #ff6da7;
+            font-size: 30px;
+            text-shadow: 2px 2px 0 #17275d;
+            animation: pulseStar 2.5s infinite alternate ease-in-out;
+        }
+
+        .coracao-1 { top: 280px; right: 90px; }
+        .coracao-2 { bottom: 150px; right: 60px; }
+
+        @keyframes pulseStar {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.15) rotate(12deg); }
+        }
+
+        /* CABEÇALHO DA LOJA */
+        .cabecalho {
+            width: calc(100% - 70px);
+            max-width: 1470px;
+            height: 100px;
+            margin: 22px auto 0;
+            padding: 10px 25px;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 12px 35px rgba(44, 99, 150, 0.12);
+            position: relative;
+            z-index: 20;
+        }
+
+        /* LOGO */
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            min-width: 320px;
+            cursor: pointer;
+        }
+
+        .logo-mascote {
+            width: 82px;
+            height: 72px;
+            position: relative;
+            margin-right: -15px;
+            z-index: 2;
+        }
+
+        .logo-chapeu {
+            width: 60px;
+            height: 25px;
+            position: absolute;
+            top: 4px;
+            left: 13px;
+            background: #249eea;
+            border: 5px solid #092754;
+            border-radius: 35px 35px 12px 12px;
+            transform: rotate(-8deg);
+        }
+
+        .logo-rosto {
+            width: 63px;
+            height: 55px;
+            position: absolute;
+            left: 10px;
+            top: 22px;
+            background: #fff1ed;
+            border: 5px solid #092754;
+            border-radius: 45% 45% 50% 50%;
+        }
+
+        .logo-rosto .olho {
+            position: absolute;
+            width: 12px;
+            height: 18px;
+            background: #092754;
+            border-radius: 50%;
+            left: 15px;
+            top: 17px;
+        }
+
+        .logo-rosto .olho-direito { left: 38px; }
+
+        .logo-rosto .boca {
+            position: absolute;
+            left: 27px;
+            top: 34px;
+            font-size: 15px;
+            color: #ff579c;
+            font-weight: 900;
+        }
+
+        .logo-texto {
+            font-family: "Fredoka", sans-serif;
+            font-size: 43px;
+            font-weight: 700;
+            letter-spacing: -4px;
+            color: #4c8de8;
+            text-shadow: 3px 3px 0 #a96eea, 5px 5px 0 #ffffff, 7px 7px 0 #092754;
+            z-index: 3;
+        }
+
+        .logo-texto span:nth-child(1) { color: #4d9ff0; }
+        .logo-texto span:nth-child(2) { color: #ad80ed; }
+        .logo-texto span:nth-child(3) { color: #55a6ee; }
+        .logo-texto span:nth-child(4) { color: #b080eb; }
+        .logo-texto span:nth-child(5) { color: #ed6fa8; }
+        .logo-texto span:nth-child(6) { color: #59a7ed; }
+        .logo-texto span:nth-child(7) { color: #a879e9; }
+        .logo-texto small { font-size: 28px; color: #54a8ee; }
+
+        /* MENU DESKTOP */
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu a {
+            height: 58px;
+            padding: 0 21px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #293575;
+            font-family: "Fredoka", sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            transition: 0.25s;
+            cursor: pointer;
+        }
+
+        .menu a i { font-size: 22px; }
+        .menu a:hover { background: #edf3ff; transform: translateY(-2px); }
+        .menu a.ativo {
+            color: #ec438b;
+            background: linear-gradient(135deg, #ffe0ef, #f7dcff);
+        }
+
+        /* AÇÕES & NOTIFICAÇÃO */
+        .acoes {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notificacao, .botao-menu {
+            width: 52px;
+            height: 52px;
+            border: none;
+            border-radius: 17px;
+            background: #e3f3ff;
+            color: #293777;
+            font-size: 22px;
+            cursor: pointer;
+            position: relative;
+            transition: 0.2s;
+        }
+
+        .notificacao:hover, .botao-menu:hover { background: #d0e8ff; transform: scale(1.05); }
+
+        .notificacao span {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 23px;
+            height: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ed4288;
+            color: white;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .botao-menu { display: none; }
+
+        /* MENU MOBILE LATERAL */
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            right: -330px;
+            width: 310px;
+            height: 100vh;
+            padding: 85px 25px 30px;
+            background: white;
+            box-shadow: -10px 0 35px rgba(24, 49, 100, 0.18);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .menu-lateral.aberto { right: 0; }
+
+        .fechar-menu {
+            position: absolute;
+            top: 22px;
+            right: 20px;
+            width: 43px;
+            height: 43px;
+            border: none;
+            border-radius: 50%;
+            background: #ffe5f1;
+            color: #e53f86;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .menu-mobile-logo {
+            font-family: "Fredoka", sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            color: #478de6;
+            margin-bottom: 20px;
+        }
+
+        .menu-lateral a {
+            padding: 17px;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: #303b78;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .menu-lateral a:hover { background: #eef6ff; }
+
+        /* CONTEÚDO PRINCIPAL DA PÁGINA */
+        .conteudo {
+            width: calc(100% - 80px);
+            max-width: 1450px;
+            margin: 0 auto;
+            padding: 35px 0 60px;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        /* CABEÇALHO DO QUEBRA-CABEÇA */
+        .cabecalho-pagina {
+            min-height: 200px;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .mini-titulo {
+            display: inline-block;
+            padding: 7px 15px;
+            border-radius: 20px;
+            background: #fff0f8;
+            color: #df4b91;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 13px;
+        }
+
+        .texto-pagina h1 {
+            font-family: "Fredoka", sans-serif;
+            color: #092568;
+            font-size: 46px;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .texto-pagina h1 span { color: #ff649f; font-size: 42px; }
+
+        .texto-pagina > p {
+            max-width: 650px;
+            color: #46588f;
+            font-size: 17px;
+            line-height: 1.55;
+        }
+
+        /* MASCOTE ANIMADO DA HERO */
+        .mascote-area {
+            height: 220px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mascote {
+            width: 220px;
+            height: 200px;
+            position: relative;
+            animation: floatMascot 4s ease-in-out infinite;
+        }
+
+        @keyframes floatMascot {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .mascote .chapeu {
+            position: absolute;
+            width: 165px;
+            height: 65px;
+            top: 25px;
+            left: 24px;
+            background: #209fe9;
+            border: 7px solid #062752;
+            border-radius: 80px 80px 18px 18px;
+            transform: rotate(-6deg);
+            z-index: 3;
+        }
+
+        .mascote .chapeu::after {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 18px;
+            right: 15px;
+            top: 18px;
+            background: #7edbff;
+            border-radius: 5px;
+            transform: rotate(6deg);
+        }
+
+        .mascote .rosto {
+            position: absolute;
+            top: 65px;
+            left: 24px;
+            width: 170px;
+            height: 135px;
+            background: #fff1ed;
+            border: 7px solid #062752;
+            border-radius: 48% 48% 50% 50%;
+            z-index: 2;
+        }
+
+        .mascote .olho {
+            position: absolute;
+            width: 34px;
+            height: 50px;
+            background: #062752;
+            border-radius: 50%;
+            top: 30px;
+            left: 32px;
+        }
+
+        .mascote .olho::after {
+            content: "";
+            position: absolute;
+            width: 11px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            left: 8px;
+            top: 6px;
+        }
+
+        .mascote .olho-direito {
+            width: 35px;
+            height: 15px;
+            left: 100px;
+            top: 46px;
+            transform: rotate(10deg);
+        }
+
+        .mascote .bochecha {
+            position: absolute;
+            width: 34px;
+            height: 18px;
+            background: #ff91b5;
+            border-radius: 50%;
+            top: 80px;
+        }
+
+        .bochecha-esquerda { left: 18px; }
+        .bochecha-direita { right: 18px; }
+
+        .mascote .boca {
+            position: absolute;
+            top: 72px;
+            left: 68px;
+            color: #f25291;
+            font-size: 29px;
+            font-weight: 900;
+        }
+
+        .coroa {
+            position: absolute;
+            top: -10px;
+            left: 48px;
+            z-index: 8;
+            color: #ffc735;
+            font-size: 58px;
+            transform: rotate(-18deg);
+            text-shadow: 4px 4px 0 #082653;
+        }
+
+        /* CARD PRINCIPAL DO JOGO */
+        .painel-jogo {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 32px;
+            padding: 35px;
+            box-shadow: 0 15px 40px rgba(44, 99, 150, 0.12);
+            border: 3px solid #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* BARRA SUPERIOR DE CONTRÔLES E STATUS */
+        .barra-status {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #dbe8f5;
+        }
+
+        .btn-voltar {
+            background: #fff0f5;
+            color: #ed4288;
+            border: 2px solid #ffd0e3;
+            padding: 10px 22px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-family: "Nunito", sans-serif;
+            font-size: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-voltar:hover { background: #ed4288; color: white; border-color: #ed4288; transform: translateY(-2px); }
+
+        .contadores {
+            display: flex;
+            gap: 18px;
+            background: #eef7ff;
+            padding: 10px 22px;
+            border-radius: 24px;
+            font-weight: 800;
+            color: #293777;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .contador-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 16px;
+        }
+
+        .contador-item i { color: #3f91e9; }
+        .contador-item span { color: #ed4288; font-size: 18px; }
+
+        .btn-reiniciar {
+            background: linear-gradient(135deg, #3f91e9, #6f81e7);
+            color: white;
+            border: none;
+            padding: 11px 24px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-family: "Nunito", sans-serif;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            box-shadow: 0 5px 15px rgba(63, 145, 233, 0.3);
+        }
+
+        .btn-reiniciar:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(63, 145, 233, 0.45); }
+
+        /* TABULEIRO DO QUEBRA-CABEÇA */
+        .area-quebra-cabeca {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 10px 0 25px;
+        }
+
+        .tabuleiro-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tabuleiro-titulo {
+            font-family: "Fredoka", sans-serif;
+            font-size: 18px;
+            color: #293775;
+        }
+
+        .puzzle-grid {
+            width: 360px;
+            height: 360px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 6px;
+            background: #293775;
+            padding: 12px;
+            border-radius: 24px;
+            box-shadow: 0 12px 30px rgba(9, 39, 84, 0.25);
+            position: relative;
+        }
+
+        /* PEÇAS DO JOGO */
+        .puzzle-piece {
+            width: 100%;
+            height: 100%;
+            background-color: #fff1ed;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            background-size: 336px 336px; /* Tamanho exato interno da grid (360 - 24 pad) */
+        }
+
+        .puzzle-piece:hover {
+            transform: scale(0.97);
+            border-color: #ffb4d2;
+        }
+
+        .puzzle-piece.selected {
+            border-color: #ed4288;
+            transform: scale(0.93);
+            box-shadow: 0 0 15px rgba(237, 66, 136, 0.6);
+            animation: bounceSelected 0.8s infinite alternate;
+        }
+
+        @keyframes bounceSelected {
+            0% { transform: scale(0.93); }
+            100% { transform: scale(0.97); }
+        }
+
+        .puzzle-piece .indice-guia {
+            position: absolute;
+            top: 5px;
+            left: 7px;
+            font-size: 11px;
+            font-weight: 900;
+            color: rgba(9, 39, 84, 0.4);
+            background: rgba(255,255,255,0.75);
+            padding: 2px 6px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        /* GUIA / GABARITO VISUAL AO LADO */
+        .gabarito-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .gabarito-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 20px;
+            border: 4px solid #ffffff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ARTE VETORIAL INTEGRADA DO MASCOTE (IMAGEM COMPLETA DE REFERÊNCIA) */
+        .arte-mascote-svg {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffdcf0 0%, #d8eaff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* MODAL DE VITÓRIA */
+        .vitoria-overlay {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 30px;
+            z-index: 50;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            animation: popWin 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popWin {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .vitoria-icone {
+            font-size: 75px;
+            color: #ffc83d;
+            margin-bottom: 15px;
+            filter: drop-shadow(3px 4px 0 #12285e);
+            animation: trophyBounce 1s infinite alternate ease-in-out;
+        }
+
+        @keyframes trophyBounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        .vitoria-overlay h2 {
+            font-family: "Fredoka", sans-serif;
+            font-size: 36px;
+            color: #293775;
+            margin-bottom: 10px;
+        }
+
+        .vitoria-overlay p {
+            font-size: 18px;
+            color: #52689c;
+            margin-bottom: 25px;
+            max-width: 450px;
+        }
+
+        .vitoria-estats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .estat-badge {
+            background: #eef7ff;
+            padding: 10px 20px;
+            border-radius: 18px;
+            font-weight: 800;
+            color: #293775;
+        }
+
+        .estat-badge span { color: #ed4288; font-size: 19px; }
+
+        .btn-jogar-novamente {
+            background: linear-gradient(135deg, #ed4288, #b86ee9);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 22px;
+            font-weight: 800;
+            font-size: 18px;
+            font-family: "Nunito", sans-serif;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(237, 66, 136, 0.35);
+            transition: 0.2s;
+        }
+
+        .btn-jogar-novamente:hover { transform: scale(1.05); }
+
+        /* RODAPÉ */
+        footer {
+            padding: 35px 20px 40px;
+            text-align: center;
+            background: rgba(184, 225, 252, 0.65);
+            margin-top: auto;
+        }
+
+        .footer-logo {
+            font-family: "Fredoka", sans-serif;
+            font-size: 31px;
+            font-weight: 700;
+            color: #4a8fe6;
+            text-shadow: 2px 2px 0 #a879e8;
+        }
+
+        footer p { margin-top: 5px; color: #52689c; font-size: 14px; }
+        footer span { display: block; margin-top: 8px; color: #7184aa; font-size: 12px; }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 1250px) {
+            .menu a span { display: none; }
+            .logo { min-width: 260px; }
+            .cabecalho-pagina { grid-template-columns: 1fr 280px; }
+            .mascote { transform: scale(0.85); }
+        }
+
+        @media (max-width: 900px) {
+            .cabecalho { width: calc(100% - 30px); }
+            .conteudo { width: calc(100% - 40px); }
+            .cabecalho-pagina { grid-template-columns: 1fr; text-align: center; }
+            .texto-pagina > p { margin-left: auto; margin-right: auto; }
+            .mascote-area { display: none; }
+            .puzzle-grid { width: 320px; height: 320px; }
+        }
+
+        @media (max-width: 800px) {
+            .cabecalho { height: 78px; padding: 8px 15px; border-radius: 20px; }
+            .logo { min-width: auto; }
+            .logo-mascote { width: 58px; transform: scale(0.72); transform-origin: left center; margin-right: -25px; }
+            .logo-texto { font-size: 31px; }
+            .logo-texto small { font-size: 20px; }
+            .menu { display: none; }
+            .botao-menu { display: inline-block; }
+            .notificacao { width: 47px; height: 47px; }
+            .barra-status { flex-direction: column; align-items: stretch; text-align: center; }
+            .contadores { justify-content: center; }
+            .area-quebra-cabeca { flex-direction: column; }
+        }
+
+        @media (max-width: 480px) {
+            .puzzle-grid { width: 280px; height: 280px; padding: 8px; gap: 4px; }
+            .gabarito-img { width: 140px; height: 140px; }
+            .painel-jogo { padding: 20px 15px; }
+            .texto-pagina h1 { font-size: 34px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- DECORAÇÕES -->
+    <div class="decoracao estrela estrela-1">★</div>
+    <div class="decoracao estrela estrela-2">✦</div>
+    <div class="decoracao estrela estrela-3">★</div>
+    <div class="decoracao coracao coracao-1">♥</div>
+    <div class="decoracao coracao coracao-2">♥</div>
+
+    <!-- CABEÇALHO -->
+    <header class="cabecalho">
+        <a href="#" class="logo">
+            <div class="logo-mascote">
+                <div class="logo-chapeu"></div>
+                <div class="logo-rosto">
+                    <span class="olho"></span>
+                    <span class="olho olho-direito"></span>
+                    <span class="boca">ᴗ</span>
+                </div>
+            </div>
+            <div class="logo-texto">
+                <span>S</span><span>a</span><span>r</span><span>a</span><span>d</span><span>a</span><span>g</span>
+                <small>-ui</small>
+            </div>
+        </a>
+
+        <nav class="menu">
+            <a href="#">
+                <i class="fa-solid fa-house"></i>
+                <span>Início</span>
+            </a>
+            <a href="#">
+                <i class="fa-solid fa-star"></i>
+                <span>Brinquedos</span>
+            </a>
+            <a href="#" class="ativo">
+                <i class="fa-solid fa-heart"></i>
+                <span>Atividades</span>
+            </a>
+            <a href="#">
+                <i class="fa-solid fa-user"></i>
+                <span>Perfil</span>
+            </a>
+        </nav>
+
+        <div class="acoes">
+            <button class="notificacao" onclick="alert('Você tem 3 novas insígnias de jogos para desbloquear!')">
+                <i class="fa-regular fa-bell"></i>
+                <span>3</span>
+            </button>
+            <button class="botao-menu" onclick="abrirMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MENU MOBILE LATERAL -->
+    <aside class="menu-lateral" id="menuLateral">
+        <button class="fechar-menu" onclick="fecharMenu()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="menu-mobile-logo">Saradag-ui</div>
+        <a href="#" onclick="fecharMenu();"><i class="fa-solid fa-house"></i> Início</a>
+        <a href="#" onclick="fecharMenu();"><i class="fa-solid fa-star"></i> Brinquedos</a>
+        <a href="#" onclick="fecharMenu();" class="ativo"><i class="fa-solid fa-heart"></i> Atividades</a>
+        <a href="#" onclick="fecharMenu();"><i class="fa-solid fa-user"></i> Perfil</a>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
+
+        <section class="cabecalho-pagina">
+            <div class="texto-pagina">
+                <span class="mini-titulo">✨ Hora de aprender!</span>
+                <h1>Quebra-cabeça Divertido <span>★</span></h1>
+                <p>Clique em duas peças para trocá-las de lugar e montar o desenho completo do mascote Saradag-ui!</p>
+            </div>
+
+            <!-- MASCOTE ANIMADO HERO -->
+            <div class="mascote-area">
+                <div class="coroa">♛</div>
+                <div class="mascote">
+                    <div class="chapeu"></div>
+                    <div class="rosto">
+                        <div class="olho olho-esquerdo"></div>
+                        <div class="olho olho-direito"></div>
+                        <div class="bochecha bochecha-esquerda"></div>
+                        <div class="bochecha bochecha-direita"></div>
+                        <div class="boca">ᴗ</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAINEL PRINCIPAL DO JOGO -->
+        <section class="painel-jogo">
+
+            <!-- BARRA DE STATUS / CONTRÔLES -->
+            <div class="barra-status">
+                <a href="#" class="btn-voltar">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar às Atividades
+                </a>
+
+                <div class="contadores">
+                    <div class="contador-item">
+                        <i class="fa-solid fa-shoe-prints"></i> Movimentos: <span id="txtMovimentos">0</span>
+                    </div>
+                    <div class="contador-item">
+                        <i class="fa-regular fa-clock"></i> Tempo: <span id="txtTempo">00:00</span>
+                    </div>
+                </div>
+
+                <button class="btn-reiniciar" onclick="reiniciarJogo()">
+                    <i class="fa-solid fa-rotate-right"></i> Embaraçar
+                </button>
+            </div>
+
+            <!-- ÁREA DE JOGO DO QUEBRA-CABEÇA -->
+            <div class="area-quebra-cabeca">
+                <div class="tabuleiro-container">
+                    <div class="tabuleiro-titulo">Monte aqui:</div>
+                    <div class="puzzle-grid" id="puzzleGrid">
+                        <!-- Peças geradas via JS -->
+                    </div>
+                </div>
+
+                <!-- GABARITO / REFERÊNCIA VISUAL -->
+                <div class="gabarito-box">
+                    <div class="tabuleiro-titulo">Desenho Completo:</div>
+                    <div class="gabarito-img">
+                        <svg class="arte-mascote-svg" viewBox="0 0 200 200">
+                            <!-- Fundo de Referência -->
+                            <rect width="200" height="200" fill="#eaf4ff"/>
+                            <circle cx="100" cy="100" r="85" fill="#ffdcf0"/>
+                            <circle cx="100" cy="100" r="70" fill="#ffffff" opacity="0.6"/>
+                            <!-- Mascote SVG -->
+                            <g transform="translate(10, 15)">
+                                <!-- Coroa -->
+                                <path d="M75 25 L83 45 L95 30 L107 45 L115 25 L110 50 L80 50 Z" fill="#ffc735" stroke="#062752" stroke-width="3"/>
+                                <!-- Chapéu -->
+                                <rect x="35" y="45" width="110" height="40" rx="20" fill="#209fe9" stroke="#062752" stroke-width="5" transform="rotate(-5 90 65)"/>
+                                <rect x="110" y="52" width="40" height="12" rx="4" fill="#7edbff" transform="rotate(2 130 58)"/>
+                                <!-- Rosto -->
+                                <rect x="35" y="70" width="110" height="90" rx="45" fill="#fff1ed" stroke="#062752" stroke-width="5"/>
+                                <!-- Olhos -->
+                                <ellipse cx="65" cy="105" rx="10" ry="16" fill="#062752"/>
+                                <circle cx="62" cy="98" r="3" fill="#ffffff"/>
+                                <ellipse cx="115" cy="105" rx="10" ry="16" fill="#062752"/>
+                                <circle cx="112" cy="98" r="3" fill="#ffffff"/>
+                                <!-- Bochechas -->
+                                <ellipse cx="52" cy="125" rx="10" ry="5" fill="#ff91b5"/>
+                                <ellipse cx="128" cy="125" rx="10" ry="5" fill="#ff91b5"/>
+                                <!-- Boca -->
+                                <path d="M 83 126 Q 90 136 97 126" fill="transparent" stroke="#f25291" stroke-width="4" stroke-linecap="round"/>
+                                <!-- Estrelas Decorativas -->
+                                <text x="145" y="40" font-size="20" fill="#ffc83d">★</text>
+                                <text x="20" y="160" font-size="16" fill="#ff6da7">♥</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL DE VITÓRIA EMBUTIDO -->
+            <div class="vitoria-overlay" id="vitoriaOverlay">
+                <i class="fa-solid fa-trophy vitoria-icone"></i>
+                <h2>Incrível! Você Venceu! 🎉</h2>
+                <p>Você completou o quebra-cabeça com maestria e ganhou <strong>+50 pontos</strong> para o seu perfil Saradag-ui!</p>
+
+                <div class="vitoria-estats">
+                    <div class="estat-badge">Movimentos: <span id="vitMovimentos">0</span></div>
+                    <div class="estat-badge">Tempo: <span id="vitTempo">00:00</span></div>
+                </div>
+
+                <button class="btn-jogar-novamente" onclick="reiniciarJogo()">
+                    Jogar Novamente <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <div class="footer-logo">Saradag-ui</div>
+        <p>Uma experiência simples, divertida e especial para todas as crianças.</p>
+        <span>© 2026 Saradag-ui - Todos os direitos reservados.</span>
+    </footer>
+
+    <!-- JAVASCRIPT EMBUTIDO DO QUEBRA-CABEÇA -->
+    <script>
+        /* =========================================================
+           LÓGICA INTERATIVA DO JOGO DE QUEBRA-CABEÇA
+           ========================================================= */
+
+        // Estado do Jogo
+        let estadoAtual = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        let pecaSelecionadaIndex = null;
+        let movimentos = 0;
+        let tempoSegundos = 0;
+        let timerInterval = null;
+        let jogoIniciado = false;
+        let jogoConcluido = false;
+
+        // Elementos DOM
+        const puzzleGrid = document.getElementById('puzzleGrid');
+        const txtMovimentos = document.getElementById('txtMovimentos');
+        const txtTempo = document.getElementById('txtTempo');
+        const vitoriaOverlay = document.getElementById('vitoriaOverlay');
+        const vitMovimentos = document.getElementById('vitMovimentos');
+        const vitTempo = document.getElementById('vitTempo');
+
+        // SVG DataURI usado para preencher dinamicamente as peças do Quebra-cabeça
+        const svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+            <rect width="300" height="300" fill="#eaf4ff"/>
+            <circle cx="150" cy="150" r="130" fill="#ffdcf0"/>
+            <circle cx="150" cy="150" r="105" fill="#ffffff" opacity="0.6"/>
+            <g transform="translate(15, 20) scale(1.4)">
+                <path d="M75 25 L83 45 L95 30 L107 45 L115 25 L110 50 L80 50 Z" fill="#ffc735" stroke="#062752" stroke-width="3"/>
+                <rect x="35" y="45" width="110" height="40" rx="20" fill="#209fe9" stroke="#062752" stroke-width="5" transform="rotate(-5 90 65)"/>
+                <rect x="110" y="52" width="40" height="12" rx="4" fill="#7edbff" transform="rotate(2 130 58)"/>
+                <rect x="35" y="70" width="110" height="90" rx="45" fill="#fff1ed" stroke="#062752" stroke-width="5"/>
+                <ellipse cx="65" cy="105" rx="10" ry="16" fill="#062752"/>
+                <circle cx="62" cy="98" r="3" fill="#ffffff"/>
+                <ellipse cx="115" cy="105" rx="10" ry="16" fill="#062752"/>
+                <circle cx="112" cy="98" r="3" fill="#ffffff"/>
+                <ellipse cx="52" cy="125" rx="10" ry="5" fill="#ff91b5"/>
+                <ellipse cx="128" cy="125" rx="10" ry="5" fill="#ff91b5"/>
+                <path d="M 83 126 Q 90 136 97 126" fill="transparent" stroke="#f25291" stroke-width="4" stroke-linecap="round"/>
+                <text x="145" y="40" font-size="20" fill="#ffc83d">★</text>
+                <text x="20" y="160" font-size="16" fill="#ff6da7">♥</text>
+            </g>
+        </svg>`;
+
+        const bgDataUrl = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgString);
+
+        // Inicializar a aplicação ao carregar
+        window.addEventListener('DOMContentLoaded', () => {
+            reiniciarJogo();
+        });
+
+        // Embaralha o vetor de posições
+        function embaralhar(array) {
+            let copia = [...array];
+            let n = copia.length;
+            // Garante que não fique igual ao gabarito após embaralhar
+            do {
+                for (let i = n - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [copia[i], copia[j]] = [copia[j], copia[i]];
+                }
+            } while (copia.every((val, idx) => val === idx));
+            return copia;
+        }
+
+        // Renderiza o grid do Quebra-cabeça
+        function renderizarGrid() {
+            puzzleGrid.innerHTML = '';
+            
+            estadoAtual.forEach((valorPeca, posicaoIndex) => {
+                const peca = document.createElement('div');
+                peca.className = 'puzzle-piece';
+                
+                if (pecaSelecionadaIndex === posicaoIndex) {
+                    peca.classList.add('selected');
+                }
+
+                // Cálculo das posições de fundo da imagem cortada (3x3)
+                const originalRow = Math.floor(valorPeca / 3);
+                const originalCol = valorPeca % 3;
+                const bgX = originalCol * 50; // 0%, 50%, 100%
+                const bgY = originalRow * 50;
+
+                peca.style.backgroundImage = `url("${bgDataUrl}")`;
+                peca.style.backgroundPosition = `${bgX}% ${bgY}%`;
+
+                // Número pequeno de auxílio
+                const numGuia = document.createElement('span');
+                numGuia.className = 'indice-guia';
+                numGuia.innerText = valorPeca + 1;
+                peca.appendChild(numGuia);
+
+                // Evento de Clique para Trocar Peças
+                peca.addEventListener('click', () => clicarPeca(posicaoIndex));
+
+                puzzleGrid.appendChild(peca);
+            });
+        }
+
+        // Lógica de Seleção e Troca
+        function clicarPeca(index) {
+            if (jogoConcluido) return;
+
+            // Iniciar Cronômetro no primeiro movimento
+            if (!jogoIniciado) {
+                iniciarTimer();
+                jogoIniciado = true;
+            }
+
+            if (pecaSelecionadaIndex === null) {
+                // Primeira peça selecionada
+                pecaSelecionadaIndex = index;
+            } else if (pecaSelecionadaIndex === index) {
+                // Desmarcar se clicar na mesma
+                pecaSelecionadaIndex = null;
+            } else {
+                // Segunda peça selecionada: Trocar de lugar
+                const temp = estadoAtual[pecaSelecionadaIndex];
+                estadoAtual[pecaSelecionadaIndex] = estadoAtual[index];
+                estadoAtual[index] = temp;
+
+                pecaSelecionadaIndex = null;
+                movimentos++;
+                txtMovimentos.innerText = movimentos;
+
+                // Checa condição de vitória
+                checarVitoria();
+            }
+
+            renderizarGrid();
+        }
+
+        // Inicia o Timer de Tempo
+        function iniciarTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                tempoSegundos++;
+                const mins = String(Math.floor(tempoSegundos / 60)).padStart(2, '0');
+                const segs = String(tempoSegundos % 60).padStart(2, '0');
+                txtTempo.innerText = `${mins}:${segs}`;
+            }, 1000);
+        }
+
+        // Reseta tudo e embaralha o jogo
+        function reiniciarJogo() {
+            clearInterval(timerInterval);
+            tempoSegundos = 0;
+            movimentos = 0;
+            jogoIniciado = false;
+            jogoConcluido = false;
+            pecaSelecionadaIndex = null;
+
+            txtMovimentos.innerText = '0';
+            txtTempo.innerText = '00:00';
+            vitoriaOverlay.style.display = 'none';
+
+            estadoAtual = embaralhar([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+            renderizarGrid();
+        }
+
+        // Verifica se todas as peças estão na posição correta
+        function checarVitoria() {
+            const venceu = estadoAtual.every((val, idx) => val === idx);
+
+            if (venceu) {
+                jogoConcluido = true;
+                clearInterval(timerInterval);
+
+                vitMovimentos.innerText = movimentos;
+                vitTempo.innerText = txtTempo.innerText;
+
+                // Ativar efeito de Confetes
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
+
+                setTimeout(() => {
+                    vitoriaOverlay.style.display = 'flex';
+                }, 300);
+            }
+        }
+
+        // Drawer de Menu Mobile
+        function abrirMenu() {
+            document.getElementById("menuLateral").classList.add("aberto");
+        }
+
+        function fecharMenu() {
+            document.getElementById("menuLateral").classList.remove("aberto");
+        }
+    </script>
+</body>
+</html>
